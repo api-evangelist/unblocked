@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: help@getunblocked.com
+    name: Unblocked
+  description: "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n"
+  title: Unblocked Public API Reference Answers Documents API
+  version: v1
+  x-logo:
+    url: https://avatars.githubusercontent.com/u/91906527?s=300
+    altText: Unblocked
+servers:
+- url: https://getunblocked.com/api/v1
+security:
+- ApiKeyBearerAuth: []
+tags:
+- description: 'A document contains content that Unblocked uses to answer questions. Each document is associated with a collection, so you must create a collection before adding documents. Documents used to provide answers will appear as references in the Unblocked interface.
+
+
+    You can create and delete documents as needed.
+
+    '
+  name: Documents
+paths:
+  /documents:
+    get:
+      description: 'List all documents.
+
+        '
+      operationId: listDocuments
+      parameters:
+      - description: 'Limit used to constrain results of list operations. When not specified a default limit of 25 is used.
+
+
+          A maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.
+
+          '
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          maximum: 200
+          minimum: 1
+          type: integer
+      - in: query
+        name: after
+        required: false
+        schema:
+          $ref: '#/components/schemas/Cursor'
+      - in: query
+        name: before
+        required: false
+        schema:
+          $ref: '#/components/schemas/Cursor'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Document'
+                type: array
+          description: OK
+          headers:
+            link:
+              $ref: '#/components/headers/Link'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      summary: List Documents
+      tags:
+      - Documents
+    put:
+      description: 'Use this endpoint to create or update a document for a given collection.
+
+
+        Documents are unique by `uri` across your organization.
+
+        If the document for `uri` does not exist, it will be created.
+
+        If the document for `uri` exists, it will be updated.
+
+        On success, an ID for the created or updated document will be returned.
+
+
+        Documents created or updated may take up to a minute to be available for use.
+
+        '
+      operationId: putDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutDocumentRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutDocumentResponse'
+          description: OK
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      summary: Put Document
+      tags:
+      - Documents
+  /documents/{documentId}:
+    delete:
+      description: 'Remove a document from the collection.
+
+
+        Removed documents may take up to a minute to be removed from the system.
+
+        '
+      operationId: deleteDocument
+      parameters:
+      - in: path
+        name: documentId
+        required: true
+        schema:
+          description: The ID of the document.
+          format: uuid
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      summary: Delete Document
+      tags:
+      - Documents
+components:
+  schemas:
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
+    PutDocumentResponse:
+      properties:
+        id:
+          $ref: '#/components/schemas/ApiResourceId'
+      type: object
+    PutDocumentRequest:
+      properties:
+        collectionId:
+          description: The ID of the collection where the document will be added.
+          format: uuid
+          type: string
+        title:
+          description: A short title for the document in plain text.
+          example: Password Reset Guide
+          type: string
+        body:
+          description: 'The body of the document. Structured formats like Markdown or JSON are preferred for better AI-powered answers.
+
+
+            The body can be provided as:
+
+            - Plain text (recommended) - Will be automatically compressed for storage
+
+            - Pre-compressed gzip + base64 encoded text (optional) - For large documents or bandwidth optimization
+
+
+            Maximum request size including all fields: 10MB
+
+            '
+          example: To reset your password, visit ...
+          type: string
+        uri:
+          description: A URL of the original source document that uniquely identifies the document. These will be used in answer references to link back to the original source.
+          example: https://my.company.com/apollo/ticket/123456
+          type: string
+      type: object
+    Document:
+      properties:
+        id:
+          description: The ID of the document.
+          format: uuid
+          type: string
+        collectionId:
+          description: The ID of the collection to which the document should be added.
+          format: uuid
+          type: string
+        createdAt:
+          description: The date and time the document was first added.
+          format: date-time
+          type: string
+        updatedAt:
+          description: The date and time the document was last updated.
+          format: date-time
+          type: string
+        title:
+          description: A short title for the document in plain text.
+          example: Password Reset Guide
+          type: string
+        uri:
+          description: A URL of the original source document that uniquely identifies the document. These will be used in answer references to link to the original source.
+          example: https://my.company.com/apollo/ticket/123456
+          type: string
+      required:
+      - collectionId
+      - createdAt
+      - id
+      - title
+      - updatedAt
+      - uri
+      type: object
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              status:
+                description: The HTTP status code
+                example: 400
+                type: integer
+            required:
+            - status
+            type: object
+      description: Error response
+  headers:
+    Link:
+      description: 'A link header providing navigation links related to the response.
+
+        '
+      example: <https://api.example.com/some/resource>; rel="next"
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyBearerAuth:
+      bearerFormat: Unblocked API Key
+      description: The API key to authenticate requests. Obtainable from the web dashboard.
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Resources
+  tags:
+  - Collections
+  - Documents
+  - Answers
