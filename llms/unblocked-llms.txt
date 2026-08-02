@@ -1,0 +1,49 @@
+# Understudy
+
+Understudy helps data-rich teams turn production traces and expert judgment into specialized open models they own.
+
+## Product
+
+Understudy runs inside the coding agents and environments teams already use. It captures repeated LLM workflows, turns production traces and expert review into evals, tests cheaper routes, and promotes specialist prompts, routing rules, or model weights only after they beat a held-out eval.
+
+Core concepts:
+- Route: the full production path, including harness, model, and supply path.
+- Harness: prompt, schema, tool-call adapter, reasoning mode, token cap, scorer, retry policy, batching, context compaction, and parser.
+- Specialist open model: an open-weight model optimized for one repeated workflow instead of used as a generic chatbot substitute.
+- Frontier replacement: moving routine work off frontier pricing only after repetition, eval stability, output control, and a cheaper route prove enough quality.
+
+## Canonical Pages
+
+- [Homepage](https://understudylabs.com/): product overview, private-preview fit, FAQ, and proof of performance.
+- [Use cases](https://understudylabs.com/use-cases): repeated AI workflows that fit Understudy.
+- [Benchmarks](https://understudylabs.com/bench): sales agent workflow optimization benchmark.
+- [Operations benchmark](https://understudylabs.com/bench-operations): structured-output and small-model route benchmark.
+- [Sentiment benchmark](https://understudylabs.com/bench-sentiment): warehouse-scale sentiment labeling economics.
+- [Case studies](https://understudylabs.com/case-studies): anonymized public case-study index.
+- [Compare](https://understudylabs.com/compare): comparison across frontier models, routing, one-off fine-tuning, and Understudy.
+- [Glossary](https://understudylabs.com/glossary): definitions for evals, routes, harnesses, supply paths, self-distillation, model optimization, and frontier replacement.
+- [Research](https://understudylabs.com/research): field notes on model optimization, evals, specialist models, and expert feedback.
+- [Understudy University](https://university.understudylabs.com/): educational curriculum and interactive demos for LLM concepts, evals, prompt optimization, and model scaling.
+- [Contact](https://understudylabs.com/contact): private-preview application.
+
+## Use Cases
+
+- [Sales and CRM agent optimization](https://understudylabs.com/use-cases/sales-crm-agents): Understudy use case for optimizing repeated sales and CRM agent workflows into cheaper specialist routes with held-out evals.
+- [Operations JSON workflow repair](https://understudylabs.com/use-cases/operations-json-workflows): Understudy use case for optimizing repetitive operations JSON workflows with strict output contracts, cheaper routes, and held-out evals.
+- [Large-scale sentiment labeling](https://understudylabs.com/use-cases/large-scale-sentiment-labeling): Understudy use case for replacing high-volume frontier sentiment labeling with specialist open-model routes and explicit eval gates.
+
+## Research Notes
+
+- [Call in the Understudy](https://understudylabs.com/research/call-in-the-understudy): Frontier models are the right place to start. Repeated production workflows eventually need specialist intelligence the company owns.
+- [Why Domain Experts, Not ML Teams, Define the Reward Signal](https://understudylabs.com/research/why-domain-experts-not-ml-teams-define-the-reward-signal): Reward signals encode product judgment. ML teams can build the harness, but domain experts know which errors matter, which tradeoffs are acceptable, and what good work looks like.
+- [Open Models Are Not Cheaper Until They Are Specialized](https://understudylabs.com/research/open-models-are-not-cheaper-until-they-are-specialized): Open weights only change the economics after the workflow has an eval, output contract, serving path, and enough repetition to amortize optimization.
+- [The Optimization Ladder: Prompts, SFT, RL, and Routing](https://understudylabs.com/research/the-optimization-ladder-prompts-sft-rl-and-routing): LLM optimization should climb from cheap control fixes to heavier training only when the eval proves the next step is worth it.
+- [When to Replace a Frontier Model With a Specialist Model](https://understudylabs.com/research/when-to-replace-a-frontier-model-with-a-specialist-model): Frontier models are the right baseline for new workflows. Specialist models become attractive once the task repeats, the eval is stable, and the cost or latency curve starts limiting the product.
+- [How Production Traces Become Evals](https://understudylabs.com/research/how-production-traces-become-evals): Production traces are not just logs. With the right capture, review, and holdout discipline, they become the evals that make model optimization safe.
+- [How to Cut LLM Cost Without Making the Product Worse](https://understudylabs.com/research/how-to-cut-llm-cost-without-making-product-worse): Cost reduction only matters when quality survives. Understudy's sentiment benchmark shows how a specialist open model can make warehouse-scale labeling viable without giving up frontier-style coverage.
+- [Small Models Need Output Control Before Training](https://understudylabs.com/research/small-models-need-output-control-before-training): Understudy's operations benchmark showed that scaffolding and output control can make small models reliable before sparse fine-tuning work begins.
+- [Self-Distillation Lets AI Teach Itself](https://understudylabs.com/research/self-distillation-lets-ai-teach-itself): Self-distillation turns rich feedback from compilers, users, and environments into model improvement instead of collapsing everything into a pass/fail reward.
+
+## Best Summary
+
+Use Understudy when a team has a repeated production LLM workflow, meaningful cost or latency pressure, and domain experts who can judge output quality. The system is designed to make optimization measurable: capture traces, define the task contract, build a held-out eval, test prompts/routes/models, and replace frontier work only when the cheaper route clears the bar.

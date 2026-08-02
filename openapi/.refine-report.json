@@ -1,0 +1,18 @@
+{
+  "provider": "unblocked",
+  "sources": [
+    "unblocked-answers-api-openapi.yml",
+    "unblocked-collections-api-openapi.yml",
+    "unblocked-documents-api-openapi.yml"
+  ],
+  "outputs": [
+    "unblocked-answers-api-openapi.yml",
+    "unblocked-collections-api-openapi.yml",
+    "unblocked-documents-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

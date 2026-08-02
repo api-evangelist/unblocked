@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/unblocked-public-api-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Unblocked Public API OpenAPI
+  schemas ($ref links and id-reference fields). Core surface: Collections
+  group Documents; Answers wrap asynchronous Questions and cite References.
+  The spec also carries SCIM User/Group schemas (RFC 7643) used by SCIM
+  provisioning and Tool/ToolCall schemas used by the tools surface.
+entities:
+  - name: Collection
+    id: uuid (collectionId)
+    fields: [id, name, description, iconUrl]
+    notes: Max 25 per team; name 1-32 chars; description 1-4096 chars.
+  - name: Document
+    id: uuid (documentId)
+    fields: [id, collectionId, createdAt, updatedAt, title, uri, body]
+    notes: Unique by uri across the organization; upserted via putDocument.
+  - name: Question
+    id: uuid (questionId, client-generated)
+    fields: [question]
+  - name: Answer
+    id: questionId
+    fields: [state (processing|complete), questionId, question, answer (Markdown), references]
+  - name: Reference
+    fields: [htmlUrl]
+  - name: ScimUser
+    fields: [id, userName, name, displayName, active, externalId, enterprise-extension fields]
+  - name: ScimGroup
+    fields: [id, displayName, members]
+  - name: Tool
+    fields: [name, description, parameters]
+relationships:
+  - {from: Collection, to: Document, type: has_many, via: collectionId}
+  - {from: Document, to: Collection, type: belongs_to, via: collectionId}
+  - {from: Question, to: Answer, type: has_one, via: questionId}
+  - {from: Answer, to: Reference, type: has_many, via: references}
+  - {from: ScimGroup, to: ScimUser, type: has_many, via: 'members[].value'}

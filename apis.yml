@@ -1,9 +1,27 @@
 aid: unblocked
 name: Unblocked
-description: 'Unblocked is a company surfaced as a portfolio company of amplify-partners and added to
-  the API Evangelist network as a stub for enrichment. Sector: developer-tools. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: 'Unblocked is an AI context engine for engineering teams that consolidates
+  code, documentation, tickets, and conversations from sources like GitHub, Slack,
+  Jira, Confluence, Notion, and Google Drive into grounded, cited answers for
+  engineers and AI coding agents. The product spans developer Q&A, AI code review
+  with risk assessment, a CI failure agent, an official MCP server (local via the
+  Unblocked CLI and hosted remote), open-source Agent Skills, and a Public API for
+  ingesting custom documents and asking questions programmatically. Built by Next
+  Chapter Software Inc and backed by Amplify Partners.'
 url: https://raw.githubusercontent.com/api-evangelist/unblocked/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/91906527?s=300
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,11 +30,75 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Developer Tools
-apis: []
+- AI
+- Developer Experience
+- Knowledge Management
+- Code Review
+- MCP
+- AI Agents
+- Context Engineering
+- Search
+apis:
+- aid: unblocked:unblocked-answers-api
+  name: Unblocked Answers API
+  description: >-
+    Ask Unblocked questions and retrieve answers asynchronously. Submit a question using the PUT endpoint
+    and poll for the response using the GET endpoint.
+  humanURL: https://docs.getunblocked.com/api-reference/quickstart
+  baseURL: https://getunblocked.com/api/v1
+  tags:
+  - Answers
+  properties:
+  - type: OpenAPI
+    url: openapi/unblocked-answers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getunblocked.com/api-reference/quickstart
+- aid: unblocked:unblocked-collections-api
+  name: Unblocked Collections API
+  description: >-
+    A collection in Unblocked allows you to organize related documents from various data sources, such
+    as customer support tools, knowledge bases, and internal wikis, which are not natively supported by
+    Unblocked.
+
+
+    You can create multiple collections to manage documents from different sources.
+
+
+    You have the ability to list, create, update, and delete them as needed.
+
+
+    Deleting a collection will also remove all the associated documents.
+  humanURL: https://docs.getunblocked.com/api-reference/quickstart
+  baseURL: https://getunblocked.com/api/v1
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/unblocked-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getunblocked.com/api-reference/quickstart
+- aid: unblocked:unblocked-documents-api
+  name: Unblocked Documents API
+  description: >-
+    A document contains content that Unblocked uses to answer questions. Each document is associated with
+    a collection, so you must create a collection before adding documents. Documents used to provide answers
+    will appear as references in the Unblocked interface.
+
+
+    You can create and delete documents as needed.
+  humanURL: https://docs.getunblocked.com/api-reference/quickstart
+  baseURL: https://getunblocked.com/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/unblocked-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.getunblocked.com/api-reference/quickstart
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +107,70 @@ maintainers:
 common:
 - type: Website
   url: https://getunblocked.com
+- type: DeveloperPortal
+  url: https://docs.getunblocked.com
+- type: Documentation
+  url: https://docs.getunblocked.com
+- type: APIReference
+  url: https://docs.getunblocked.com/api-reference/quickstart
+- type: GettingStarted
+  url: https://docs.getunblocked.com/api-reference/quickstart
+- type: Blog
+  url: https://getunblocked.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/unblocked
+- type: Pricing
+  url: https://getunblocked.com/pricing/
+- type: SignUp
+  url: https://getunblocked.com/dashboard/get-started
+- type: TermsOfService
+  url: https://getunblocked.com/terms/
+- type: PrivacyPolicy
+  url: https://getunblocked.com/privacy/
+- type: StatusPage
+  url: https://status.getunblocked.com
+- type: ChangeLog
+  url: changelog/unblocked-changelog.yml
+- type: LLMsTxt
+  url: llms/unblocked-llms.txt
+- type: MCPServer
+  url: mcp/unblocked-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: CLI
+  url: cli/unblocked-cli.yml
+- type: Packages
+  url: packages/unblocked-packages.yml
+- type: SDKs
+  url: packages/unblocked-packages.yml
+- type: WellKnown
+  url: well-known/unblocked-well-known.yml
+- type: Authentication
+  url: authentication/unblocked-authentication.yml
+- type: Conventions
+  url: conventions/unblocked-conventions.yml
+- type: Idempotency
+  url: conventions/unblocked-conventions.yml
+- type: ErrorCatalog
+  url: errors/unblocked-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/unblocked-lifecycle.yml
+- type: Conformance
+  url: conformance/unblocked-conformance.yml
+- type: Compliance
+  url: https://trust.getunblocked.com/
+- type: TrustCenter
+  url: security/unblocked-trust-center.yml
+- type: DomainSecurity
+  url: security/unblocked-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/unblocked-agentic-access.yml
+- type: DataModel
+  url: data-model/unblocked-data-model.yml
+- type: Support
+  url: https://getunblocked.com/dashboard?showIntercom=true
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1

@@ -1,0 +1,21 @@
+generated: '2026-07-21'
+method: generated
+description: >-
+  Packaged Agent Skills for the Unblocked Public API, grounded in the
+  operationIds of the published OpenAPI. Unblocked also publishes its own
+  official open-source Agent Skills for its MCP tools at
+  https://github.com/unblocked/skills (Agent Skills specification), installed
+  via `unblocked install-skills`.
+provider_published:
+  repo: https://github.com/unblocked/skills
+  cookbook: https://github.com/unblocked/cookbook
+  install: unblocked install-skills
+skills:
+  - file: unblocked-ask-and-poll-answer.md
+    name: Ask Unblocked a question and poll for the answer
+    api: openapi/unblocked-public-api-openapi-original.json
+    operations: [askQuestion, getAnswer, listAnswers, deleteAnswer]
+  - file: unblocked-ingest-custom-docs.md
+    name: Ingest custom documents into Unblocked
+    api: openapi/unblocked-public-api-openapi-original.json
+    operations: [createCollection, listCollections, getCollection, saveCollection, deleteCollection, putDocument, listDocuments, deleteDocument]

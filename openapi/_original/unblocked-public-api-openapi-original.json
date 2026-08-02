@@ -1,0 +1,1352 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "contact" : {
+      "email" : "help@getunblocked.com",
+      "name" : "Unblocked"
+    },
+    "description" : "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n",
+    "title" : "Unblocked Public API Reference",
+    "version" : "v1",
+    "x-logo" : {
+      "url" : "https://avatars.githubusercontent.com/u/91906527?s=300",
+      "altText" : "Unblocked"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://getunblocked.com/api/v1"
+  } ],
+  "security" : [ {
+    "ApiKeyBearerAuth" : [ ]
+  } ],
+  "tags" : [ {
+    "description" : "A collection in Unblocked allows you to organize related documents from various data sources, such as customer support tools, knowledge bases, and internal wikis, which are not natively supported by Unblocked.\n\nYou can create multiple collections to manage documents from different sources.\n\nYou have the ability to list, create, update, and delete them as needed.\n\nDeleting a collection will also remove all the associated documents.\n",
+    "name" : "Collections"
+  }, {
+    "description" : "A document contains content that Unblocked uses to answer questions. Each document is associated with a collection, so you must create a collection before adding documents. Documents used to provide answers will appear as references in the Unblocked interface.\n\nYou can create and delete documents as needed.\n",
+    "name" : "Documents"
+  }, {
+    "description" : "Ask Unblocked questions and retrieve answers asynchronously. Submit a question using the PUT endpoint and poll for the response using the GET endpoint.\n",
+    "name" : "Answers"
+  } ],
+  "paths" : {
+    "/answers" : {
+      "get" : {
+        "description" : "\nList all questions and answers for your organization, ordered by creation time (newest first).\n\n**Authentication behavior:**\n- **Personal Access Token (PAT) keys**: Only questions asked by that specific user are returned (user-level isolation)\n- **Organization-wide API keys**: All questions in the organization are returned\n",
+        "operationId" : "listAnswers",
+        "parameters" : [ {
+          "description" : "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+          "in" : "query",
+          "name" : "limit",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 200,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "after",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        }, {
+          "in" : "query",
+          "name" : "before",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Answer"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK",
+            "headers" : {
+              "link" : {
+                "$ref" : "#/components/headers/Link"
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "List Answers",
+        "tags" : [ "Answers" ]
+      }
+    },
+    "/answers/{questionId}" : {
+      "delete" : {
+        "description" : "Permanently delete a question and its associated answer. This operation cannot be undone.\n",
+        "operationId" : "deleteAnswer",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "questionId",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Delete a Question",
+        "tags" : [ "Answers" ]
+      },
+      "get" : {
+        "description" : "Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer.\n",
+        "operationId" : "getAnswer",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "questionId",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Answer"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Retrieve an Answer",
+        "tags" : [ "Answers" ]
+      },
+      "put" : {
+        "description" : "Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response.\n",
+        "operationId" : "askQuestion",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "questionId",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Question"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "403" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "429" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Ask a Question",
+        "tags" : [ "Answers" ]
+      }
+    },
+    "/collections" : {
+      "get" : {
+        "description" : "List all collections.\n",
+        "operationId" : "listCollections",
+        "parameters" : [ {
+          "description" : "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+          "in" : "query",
+          "name" : "limit",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 200,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "after",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        }, {
+          "in" : "query",
+          "name" : "before",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Collection"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK",
+            "headers" : {
+              "link" : {
+                "$ref" : "#/components/headers/Link"
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "List Collections",
+        "tags" : [ "Collections" ]
+      },
+      "post" : {
+        "description" : "Create a collection. Teams are limited to 25 collections.\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n",
+        "operationId" : "createCollection",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CollectionRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Collection"
+                }
+              }
+            },
+            "description" : "Created"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Create Collection",
+        "tags" : [ "Collections" ]
+      }
+    },
+    "/collections/{collectionId}" : {
+      "delete" : {
+        "description" : "Delete a collection.\n\nDeleting a collection will also delete all of its associated documents.\n",
+        "operationId" : "deleteCollection",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "collectionId",
+          "required" : true,
+          "schema" : {
+            "description" : "The ID of the collection.",
+            "format" : "uuid",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Delete Collection",
+        "tags" : [ "Collections" ]
+      },
+      "get" : {
+        "description" : "Get a collection.\n",
+        "operationId" : "getCollection",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "collectionId",
+          "required" : true,
+          "schema" : {
+            "description" : "The ID of the collection.",
+            "format" : "uuid",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Collection"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Get Collection",
+        "tags" : [ "Collections" ]
+      },
+      "patch" : {
+        "description" : "Update a collection.\n",
+        "operationId" : "saveCollection",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "collectionId",
+          "required" : true,
+          "schema" : {
+            "description" : "The ID of the collection.",
+            "format" : "uuid",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CollectionRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Update Collection",
+        "tags" : [ "Collections" ]
+      }
+    },
+    "/documents" : {
+      "get" : {
+        "description" : "List all documents.\n",
+        "operationId" : "listDocuments",
+        "parameters" : [ {
+          "description" : "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+          "in" : "query",
+          "name" : "limit",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 200,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "after",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        }, {
+          "in" : "query",
+          "name" : "before",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/Cursor"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Document"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK",
+            "headers" : {
+              "link" : {
+                "$ref" : "#/components/headers/Link"
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "List Documents",
+        "tags" : [ "Documents" ]
+      },
+      "put" : {
+        "description" : "Use this endpoint to create or update a document for a given collection.\n\nDocuments are unique by `uri` across your organization.\nIf the document for `uri` does not exist, it will be created.\nIf the document for `uri` exists, it will be updated.\nOn success, an ID for the created or updated document will be returned.\n\nDocuments created or updated may take up to a minute to be available for use.\n",
+        "operationId" : "putDocument",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PutDocumentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PutDocumentResponse"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Put Document",
+        "tags" : [ "Documents" ]
+      }
+    },
+    "/documents/{documentId}" : {
+      "delete" : {
+        "description" : "Remove a document from the collection.\n\nRemoved documents may take up to a minute to be removed from the system.\n",
+        "operationId" : "deleteDocument",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "documentId",
+          "required" : true,
+          "schema" : {
+            "description" : "The ID of the document.",
+            "format" : "uuid",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          },
+          "500" : {
+            "$ref" : "#/components/responses/ErrorResponse"
+          }
+        },
+        "summary" : "Delete Document",
+        "tags" : [ "Documents" ]
+      }
+    }
+  },
+  "components" : {
+    "headers" : {
+      "Link" : {
+        "description" : "A link header providing navigation links related to the response.\n",
+        "example" : "<https://api.example.com/some/resource>; rel=\"next\"",
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "parameters" : {
+      "Limit" : {
+        "description" : "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+        "in" : "query",
+        "name" : "limit",
+        "required" : false,
+        "schema" : {
+          "format" : "int32",
+          "maximum" : 200,
+          "minimum" : 1,
+          "type" : "integer"
+        }
+      },
+      "After" : {
+        "in" : "query",
+        "name" : "after",
+        "required" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/Cursor"
+        }
+      },
+      "Before" : {
+        "in" : "query",
+        "name" : "before",
+        "required" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/Cursor"
+        }
+      },
+      "QuestionId" : {
+        "in" : "path",
+        "name" : "questionId",
+        "required" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/ApiResourceId"
+        }
+      },
+      "CollectionId" : {
+        "in" : "path",
+        "name" : "collectionId",
+        "required" : true,
+        "schema" : {
+          "description" : "The ID of the collection.",
+          "format" : "uuid",
+          "type" : "string"
+        }
+      },
+      "DocumentId" : {
+        "in" : "path",
+        "name" : "documentId",
+        "required" : true,
+        "schema" : {
+          "description" : "The ID of the document.",
+          "format" : "uuid",
+          "type" : "string"
+        }
+      },
+      "ToolId" : {
+        "in" : "path",
+        "name" : "toolId",
+        "required" : true,
+        "schema" : {
+          "description" : "The unique name of the tool.",
+          "example" : "search_issues",
+          "type" : "string"
+        }
+      },
+      "ScimCount" : {
+        "description" : "Non-negative integer. Specifies the desired maximum number of query results per page. A negative value SHALL be interpreted as\n\"0\".  A value of \"0\" indicates that no resource results are to be returned except for \"totalResults\".\n",
+        "example" : 10,
+        "in" : "query",
+        "name" : "count",
+        "required" : false,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      },
+      "ScimFilter" : {
+        "description" : "A filter expression used to filter the results. The expression is evaluated against the resource attributes.\n",
+        "example" : "userName eq \"bjensen\"",
+        "in" : "query",
+        "name" : "filter",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ScimStartIndex" : {
+        "description" : "The 1-based index of the first query result. A value less than 1 SHALL be interpreted as 1.\n",
+        "example" : 1,
+        "in" : "query",
+        "name" : "startIndex",
+        "required" : false,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      }
+    },
+    "responses" : {
+      "Default" : {
+        "content" : {
+          "text/plain" : {
+            "schema" : {
+              "example" : "An error occurred.",
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Default error response."
+      },
+      "ErrorResponse" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "properties" : {
+                "status" : {
+                  "description" : "The HTTP status code",
+                  "example" : 400,
+                  "type" : "integer"
+                }
+              },
+              "required" : [ "status" ],
+              "type" : "object"
+            }
+          }
+        },
+        "description" : "Error response"
+      }
+    },
+    "schemas" : {
+      "Cursor" : {
+        "description" : "Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.\n",
+        "maxLength" : 10000,
+        "minLength" : 1,
+        "type" : "string"
+      },
+      "Answer" : {
+        "properties" : {
+          "state" : {
+            "enum" : [ "processing", "complete" ],
+            "type" : "string"
+          },
+          "questionId" : {
+            "description" : "The unique identifier for the question",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "question" : {
+            "description" : "The original question text that was asked",
+            "type" : "string"
+          },
+          "answer" : {
+            "description" : "The answer to the question in Markdown format",
+            "type" : "string"
+          },
+          "references" : {
+            "description" : "References used in the answer",
+            "items" : {
+              "$ref" : "#/components/schemas/Reference"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "state" ],
+        "type" : "object"
+      },
+      "ApiResourceId" : {
+        "description" : "The ID of a resource that can be retrieved from the service.",
+        "format" : "uuid",
+        "type" : "string"
+      },
+      "Question" : {
+        "properties" : {
+          "question" : {
+            "description" : "The question to ask",
+            "type" : "string"
+          }
+        },
+        "required" : [ "question" ],
+        "type" : "object"
+      },
+      "Collection" : {
+        "properties" : {
+          "id" : {
+            "description" : "The ID of the collection.\n",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "name" : {
+            "description" : "A brief identifier for the collection.\n",
+            "example" : "Apollo",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "A sentence defining the document type within this collection, aiding the language model in grasping the content's essence.\n",
+            "example" : "Documents from the Apollo customer support tool including support responses.",
+            "type" : "string"
+          },
+          "iconUrl" : {
+            "description" : "A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.\n",
+            "example" : "https://my.company.com/apollo/logo.svg",
+            "type" : "string"
+          }
+        },
+        "required" : [ "id" ],
+        "type" : "object"
+      },
+      "CollectionRequest" : {
+        "properties" : {
+          "name" : {
+            "description" : "A brief identifier for the collection.\n",
+            "example" : "Apollo",
+            "maximum" : 32,
+            "minimum" : 1,
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "A sentence defining the document type within this collection, aiding the language model in grasping the content's essence.\n\n**Field Constraint:**\n- Collection description: 1-4096 characters\n",
+            "example" : "Documents from the Apollo customer support tool including support responses.",
+            "maximum" : 1024,
+            "minimum" : 1,
+            "type" : "string"
+          },
+          "iconUrl" : {
+            "description" : "A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.\n",
+            "example" : "https://my.company.com/apollo/logo.svg",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Document" : {
+        "properties" : {
+          "id" : {
+            "description" : "The ID of the document.",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "collectionId" : {
+            "description" : "The ID of the collection to which the document should be added.",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "createdAt" : {
+            "description" : "The date and time the document was first added.",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "updatedAt" : {
+            "description" : "The date and time the document was last updated.",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "title" : {
+            "description" : "A short title for the document in plain text.",
+            "example" : "Password Reset Guide",
+            "type" : "string"
+          },
+          "uri" : {
+            "description" : "A URL of the original source document that uniquely identifies the document. These will be used in answer references to link to the original source.",
+            "example" : "https://my.company.com/apollo/ticket/123456",
+            "type" : "string"
+          }
+        },
+        "required" : [ "collectionId", "createdAt", "id", "title", "updatedAt", "uri" ],
+        "type" : "object"
+      },
+      "PutDocumentRequest" : {
+        "properties" : {
+          "collectionId" : {
+            "description" : "The ID of the collection where the document will be added.",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "title" : {
+            "description" : "A short title for the document in plain text.",
+            "example" : "Password Reset Guide",
+            "type" : "string"
+          },
+          "body" : {
+            "description" : "The body of the document. Structured formats like Markdown or JSON are preferred for better AI-powered answers.\n\nThe body can be provided as:\n- Plain text (recommended) - Will be automatically compressed for storage\n- Pre-compressed gzip + base64 encoded text (optional) - For large documents or bandwidth optimization\n\nMaximum request size including all fields: 10MB\n",
+            "example" : "To reset your password, visit ...",
+            "type" : "string"
+          },
+          "uri" : {
+            "description" : "A URL of the original source document that uniquely identifies the document. These will be used in answer references to link back to the original source.",
+            "example" : "https://my.company.com/apollo/ticket/123456",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "PutDocumentResponse" : {
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        },
+        "type" : "object"
+      },
+      "Tool" : {
+        "properties" : {
+          "name" : {
+            "description" : "The unique name of the tool.\n",
+            "example" : "search_issues",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "A description of what the tool does.\n",
+            "example" : "Search across all connected issue trackers.",
+            "type" : "string"
+          },
+          "parameters" : {
+            "description" : "The parameters that the tool accepts.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ToolParameter"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "description", "name", "parameters" ],
+        "type" : "object"
+      },
+      "ToolCallRequest" : {
+        "properties" : {
+          "toolCallId" : {
+            "description" : "A unique identifier for this tool call, used to correlate the request with the response.\n",
+            "example" : "call_123",
+            "type" : "string"
+          },
+          "params" : {
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "The parameters to pass to the tool as key-value pairs.\n",
+            "example" : {
+              "query" : "How do I authenticate with the API?"
+            },
+            "type" : "object"
+          }
+        },
+        "required" : [ "params", "toolCallId" ],
+        "type" : "object"
+      },
+      "ToolResultResponse" : {
+        "properties" : {
+          "result" : {
+            "$ref" : "#/components/schemas/ToolResult"
+          }
+        },
+        "required" : [ "result" ],
+        "type" : "object"
+      },
+      "ScimGroupListResponse" : {
+        "description" : "A SCIM group list.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure. Each schema URI MUST be unique, and any schema that defines attributes in the current structure MUST be\nincluded in the array. The schemas array is REQUIRED and MUST be non-empty.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "totalResults" : {
+            "description" : "The total number of results returned by the list or query operation. The value may be larger than the number of resources returned,\nsuch as when returning a single page of results where multiple pages are available.\n",
+            "type" : "integer"
+          },
+          "Resources" : {
+            "description" : "An array of SCIM group objects as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.2).\nThis object is used to represent a group in the SCIM API.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ScimGroupResponse"
+            },
+            "type" : "array"
+          },
+          "startIndex" : {
+            "description" : "The 1-based index of the first result in the current set of list results.\nREQUIRED when partial results are returned due to pagination.\n",
+            "type" : "integer"
+          },
+          "itemsPerPage" : {
+            "description" : "The number of resources returned in a list response page.\nREQUIRED when partial results are returned due to pagination.\n",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "Resources", "itemsPerPage", "schemas", "startIndex", "totalResults" ],
+        "type" : "object"
+      },
+      "ScimGroupRequest" : {
+        "description" : "A SCIM group object as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.2).\nThis object is used to represent a group in the SCIM API.\n",
+        "properties" : {
+          "id" : {
+            "description" : "The unique identifier for a SCIM group as a string. This is a required attribute and is immutable once assigned.\n",
+            "type" : "string"
+          },
+          "displayName" : {
+            "description" : "The name of the group. This is a required attribute.\n",
+            "type" : "string"
+          },
+          "externalId" : {
+            "description" : "A String that is an identifier for the resource as defined by the provisioning client.  The \"externalId\" may simplify\nidentification of a resource between the provisioning client and the service provider by allowing the client to use a\nfilter to locate the resource with an identifier from the provisioning domain, obviating the need to store a local\nmapping between the provisioning domain's identifier of the resource and the identifier used by the service provider.\nEach resource MAY include a non-empty \"externalId\" value.  The value of the \"externalId\" attribute is always issued by\nthe provisioning client and MUST NOT be specified by the service provider.  The service provider MUST always interpret\nthe externalId as scoped to the provisioning domain.  While the server does not enforce uniqueness, it is assumed that\nthe value's uniqueness is controlled by the client setting the value.\n",
+            "type" : "string"
+          },
+          "members" : {
+            "description" : "A list of members of the group. The value is an array of objects, each of which MUST contain a\n\"value\" sub-attribute which is the id of the member. The value of the \"value\" sub-attribute\nMUST be the id of a SCIM user. The value of the \"type\" sub-attribute MUST be the string \"User\".\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ScimMember"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "displayName" ],
+        "type" : "object"
+      },
+      "ScimGroupResponse" : {
+        "description" : "A SCIM group object as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.2).\nThis object is used to represent a group in the SCIM API.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure. Each schema URI MUST be unique, and any schema that defines attributes in the current structure MUST be\nincluded in the array. The schemas array is REQUIRED and MUST be non-empty.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "id" : {
+            "description" : "A unique identifier for a SCIM resource as defined by the service provider. Each representation of the resource MUST include a\nnon-empty \"id\" value.  This identifier MUST be unique across the SCIM service provider's entire set of resources. It MUST be a\nstable, non-reassignable identifier that does not change when the same resource is returned in subsequent requests. The value of the\n\"id\" attribute is always issued by the service provider and MUST NOT be specified by the client. The string \"bulkId\" is a reserved\nkeyword and MUST NOT be used within any unique identifier value.\n",
+            "example" : "2819c223-7f76-453a-919d-413861904646",
+            "type" : "string"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/ScimMeta"
+          },
+          "displayName" : {
+            "description" : "A human-readable name for the Group.\n",
+            "type" : "string"
+          },
+          "members" : {
+            "description" : "A list of members of the group. The value is an array of objects, each of which MUST contain a\n\"value\" sub-attribute which is the id of the member. The value of the \"value\" sub-attribute\nMUST be the id of a SCIM user. The value of the \"type\" sub-attribute MUST be the string \"User\".\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ScimMember"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "displayName", "id", "members", "meta", "schemas" ],
+        "type" : "object"
+      },
+      "ScimPatchRequest" : {
+        "description" : "A SCIM Patch Request as defined in [RFC 7644](https://tools.ietf.org/html/rfc7644#section-3.5.1).\nThis object is used to represent a SCIM patch request.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure. Each schema URI MUST be unique, and any schema that defines attributes in the current structure MUST be\nincluded in the array. The schemas array is REQUIRED and MUST be non-empty.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "Operations" : {
+            "description" : "An array of SCIM Patch Operations as defined in [RFC 7644](https://tools.ietf.org/html/rfc7644#section-3.5.2).\nThis array contains the operations to be applied to the target resource.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ScimPatchOperation"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "Operations", "schemas" ],
+        "type" : "object"
+      },
+      "ScimUserListResponse" : {
+        "description" : "A SCIM user list.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure. Each schema URI MUST be unique, and any schema that defines attributes in the current structure MUST be\nincluded in the array. The schemas array is REQUIRED and MUST be non-empty.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "totalResults" : {
+            "description" : "The total number of results returned by the list or query operation. The value may be larger than the number of resources returned,\nsuch as when returning a single page of results where multiple pages are available.\n",
+            "type" : "integer"
+          },
+          "Resources" : {
+            "description" : "An array of SCIM user objects as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.1).\nThis object is used to represent a user in the SCIM API.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ScimUserResponse"
+            },
+            "type" : "array"
+          },
+          "startIndex" : {
+            "description" : "The 1-based index of the first result in the current set of list results.\nREQUIRED when partial results are returned due to pagination.\n",
+            "type" : "integer"
+          },
+          "itemsPerPage" : {
+            "description" : "The number of resources returned in a list response page.\nREQUIRED when partial results are returned due to pagination.\n",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "Resources", "itemsPerPage", "schemas", "startIndex", "totalResults" ],
+        "type" : "object"
+      },
+      "ScimUserRequest" : {
+        "description" : "A SCIM user object as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.1).\nThis object is used to represent a user in the SCIM API.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "externalId" : {
+            "description" : "A String that is an identifier for the resource as defined by the provisioning client. The \"externalId\" may simplify identification\nof a resource between the provisioning client and the service provider by allowing the client to use a filter to locate the resource\nwith an identifier from the provisioning domain, obviating the need to store a local mapping between the provisioning domain's\nidentifier of the resource and the identifier used by the service provider. Each resource MAY include a non-empty \"externalId\" value.\nThe value of the \"externalId\" attribute is always issued by the provisioning client and MUST NOT be specified by the service provider.\nThe service provider MUST always interpret the externalId as scoped to the provisioning domain.  While the server does not enforce\nuniqueness, it is assumed that the value's uniqueness is controlled by the client setting the value.\n",
+            "example" : "701984",
+            "type" : "string"
+          },
+          "userName" : {
+            "description" : "A service provider's unique identifier for the user, typically used by the user to directly authenticate to the service provider.\nOften displayed to the user as their unique identifier within the system (as opposed to \"id\" or \"externalId\", which are generally\nopaque and not user-friendly identifiers).  Each User MUST include a non-empty userName value.  This identifier MUST be unique across\nthe service provider's entire set of Users.  This attribute is REQUIRED and is case insensitive.\n",
+            "type" : "string"
+          },
+          "name" : {
+            "$ref" : "#/components/schemas/ScimName"
+          },
+          "displayName" : {
+            "description" : "The name of the user, suitable for display to end-users. Each user returned MAY include a non-empty displayName value. The name\nSHOULD be the full name of the User being described, if known (e.g., \"Babs Jensen\" or \"Ms. Barbara J Jensen, III\") but MAY be a\nusername or handle, if that is all that is available (e.g., \"bjensen\"). The value provided SHOULD be the primary textual label by\nwhich this User is normally displayed by the service provider when presenting it to end-users.\n",
+            "type" : "string"
+          },
+          "active" : {
+            "description" : "A Boolean value indicating the User's administrative status. The definitive meaning of this attribute is determined by the service\nprovider. As a typical example, a value of true implies that the user is able to log in, while a value of false implies that the\nuser's account has been suspended.\n",
+            "example" : true,
+            "type" : "boolean"
+          },
+          "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" : {
+            "$ref" : "#/components/schemas/ScimEnterpriseUserExtension"
+          }
+        },
+        "required" : [ "userName" ],
+        "type" : "object"
+      },
+      "ScimUserResponse" : {
+        "description" : "A SCIM user object as defined in [RFC 7643](https://tools.ietf.org/html/rfc7643#section-4.1).\nThis object is used to represent a user in the SCIM API.\n",
+        "properties" : {
+          "schemas" : {
+            "description" : "An array of Strings containing URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present\nin the current structure. Each schema URI MUST be unique, and any schema that defines attributes in the current structure MUST be\nincluded in the array. The schemas array is REQUIRED and MUST be non-empty.\n",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "id" : {
+            "description" : "A unique identifier for a SCIM resource as defined by the service provider. Each representation of the resource MUST include a\nnon-empty \"id\" value.  This identifier MUST be unique across the SCIM service provider's entire set of resources. It MUST be a\nstable, non-reassignable identifier that does not change when the same resource is returned in subsequent requests. The value of the\n\"id\" attribute is always issued by the service provider and MUST NOT be specified by the client. The string \"bulkId\" is a reserved\nkeyword and MUST NOT be used within any unique identifier value.\n",
+            "example" : "2819c223-7f76-453a-919d-413861904646",
+            "type" : "string"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/ScimMeta"
+          },
+          "userName" : {
+            "description" : "A service provider's unique identifier for the user, typically used by the user to directly authenticate to the service provider.\nOften displayed to the user as their unique identifier within the system (as opposed to \"id\" or \"externalId\", which are generally\nopaque and not user-friendly identifiers).  Each User MUST include a non-empty userName value.  This identifier MUST be unique across\nthe service provider's entire set of Users.  This attribute is REQUIRED and is case insensitive.\n",
+            "type" : "string"
+          },
+          "name" : {
+            "$ref" : "#/components/schemas/ScimName"
+          },
+          "displayName" : {
+            "description" : "The name of the user, suitable for display to end-users. Each user returned MAY include a non-empty displayName value. The name\nSHOULD be the full name of the User being described, if known (e.g., \"Babs Jensen\" or \"Ms. Barbara J Jensen, III\") but MAY be a\nusername or handle, if that is all that is available (e.g., \"bjensen\"). The value provided SHOULD be the primary textual label by\nwhich this User is normally displayed by the service provider when presenting it to end-users.\n",
+            "type" : "string"
+          },
+          "active" : {
+            "description" : "A Boolean value indicating the User's administrative status. The definitive meaning of this attribute is determined by the service\nprovider. As a typical example, a value of true implies that the user is able to log in, while a value of false implies that the\nuser's account has been suspended.\n",
+            "example" : true,
+            "type" : "boolean"
+          },
+          "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" : {
+            "$ref" : "#/components/schemas/ScimEnterpriseUserExtension"
+          }
+        },
+        "required" : [ "active", "displayName", "id", "meta", "name", "schemas", "userName" ],
+        "type" : "object"
+      },
+      "Reference" : {
+        "properties" : {
+          "htmlUrl" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "htmlUrl" ],
+        "type" : "object"
+      },
+      "ToolParameter" : {
+        "properties" : {
+          "name" : {
+            "description" : "The name of the parameter.\n",
+            "example" : "query",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "A description of what the parameter is used for.\n",
+            "example" : "The search query to execute",
+            "type" : "string"
+          },
+          "required" : {
+            "description" : "Whether the parameter is required.\n",
+            "example" : true,
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "description", "name" ],
+        "type" : "object"
+      },
+      "ToolResult" : {
+        "properties" : {
+          "toolCallId" : {
+            "description" : "The unique identifier for this tool call, matching the request.\n",
+            "example" : "call_123",
+            "type" : "string"
+          },
+          "items" : {
+            "description" : "The result items from the tool execution.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/ToolResultItem"
+            },
+            "type" : "array"
+          },
+          "errors" : {
+            "description" : "Any errors that occurred during tool execution.\n",
+            "example" : [ "Tool execution timed out" ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "hasError" : {
+            "description" : "Whether the tool execution encountered an error.\n",
+            "example" : false,
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "errors", "hasError", "items", "toolCallId" ],
+        "type" : "object"
+      },
+      "ScimMember" : {
+        "description" : "A SCIM group member.\n",
+        "properties" : {
+          "value" : {
+            "description" : "Identifier of the member of this Group.\n",
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "A label indicating the type of resource.\n",
+            "enum" : [ "User", "Group", "value" ],
+            "type" : "string"
+          },
+          "\\$ref" : {
+            "description" : "The URI of the user corresponding to the member resource of this Group.\n",
+            "type" : "string"
+          },
+          "display" : {
+            "description" : "This typically corresponds to the displayName attribute of the referenced resource,\nwhich in the case of a SCIM User, is the `userName` attribute.\n",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "ScimMeta" : {
+        "description" : "A complex attribute containing resource metadata. All \"meta\" sub-attributes are assigned by the service provider. This attribute SHALL\nbe ignored when provided by clients.\n",
+        "properties" : {
+          "resourceType" : {
+            "description" : "The name of the resource type of the resource.\n",
+            "enum" : [ "User", "Group" ],
+            "example" : "User",
+            "type" : "string"
+          },
+          "created" : {
+            "description" : "The \"DateTime\" that the resource was added to the service provider.\n",
+            "example" : "2011-05-13T04:42:34Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "lastModified" : {
+            "description" : "The most recent DateTime that the details of this resource were updated at the service provider. If this resource has never been\nmodified since its initial creation, the value MUST be the same as the value of \"created\".\n",
+            "example" : "2011-05-13T04:42:34Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "location" : {
+            "description" : "The URI of the resource being returned.\n",
+            "example" : "https://getunblocked.com/api/v1/scim/v2/Users/2819c223-7f76-453a-919d-413861904646",
+            "format" : "uri",
+            "type" : "string"
+          },
+          "version" : {
+            "description" : "The version of the resource being returned.\n",
+            "example" : "W/\"123456\"",
+            "type" : "string"
+          }
+        },
+        "required" : [ "created", "lastModified", "location", "resourceType", "version" ],
+        "type" : "object"
+      },
+      "ScimPatchOperation" : {
+        "additionalProperties" : true,
+        "description" : "A SCIM Patch Operation as defined in [RFC 7644](https://tools.ietf.org/html/rfc7644#section-3.5.2).\nThis object is used to represent a single patch operation in a SCIM patch request.\n\n### `op`\nThe \"op\" attribute is a String containing the operation to be performed. The following operations are defined:\n- \"add\": The \"add\" operation is used to add a new attribute value to an existing resource.\n- \"remove\": The \"remove\" operation is used to remove a value from a multi-valued attribute.\n- \"replace\": The \"replace\" operation is used to replace the value of a pre-existing attribute with a new value.\n\n### `path`\nThe \"path\" attribute value is a String containing an attribute path describing the target of the operation.\n\n### `value`\nThe \"value\" attribute contains the attribute value to be used in the operation.\nThe attribute value is OPTIONAL for \"remove\" operations.\nThe attribute value is REQUIRED for \"add\" and \"replace\" operations.\n",
+        "type" : "object"
+      },
+      "ScimName" : {
+        "description" : "The components of the user's name. Service providers MAY return just the full name as a single string in the formatted sub-attribute, or\nthey MAY return just the individual component attributes using the other sub-attributes, or they MAY return both. If both variants are\nreturned, they SHOULD be describing the same name, with the formatted name indicating how the component attributes should be combined.\n",
+        "properties" : {
+          "formatted" : {
+            "description" : "The full name, including all middle names, titles, and suffixes as appropriate, formatted for display.\n",
+            "example" : "Ms. Barbara Jane Jensen, III",
+            "type" : "string"
+          },
+          "familyName" : {
+            "description" : "The family name of the User, or last name in most Western languages.\n",
+            "example" : "Jensen",
+            "type" : "string"
+          },
+          "givenName" : {
+            "description" : "The given name of the User, or first name in most Western languages.\n",
+            "example" : "Barbara",
+            "type" : "string"
+          },
+          "middleName" : {
+            "description" : "The middle name(s) of the User.\n",
+            "example" : "Jane",
+            "type" : "string"
+          },
+          "honorificPrefix" : {
+            "description" : "The honorific prefix(es) of the User, or title in most Western languages.\n",
+            "example" : "Ms.",
+            "type" : "string"
+          },
+          "honorificSuffix" : {
+            "description" : "The honorific suffix(es) of the User, or suffix in most Western languages.\n",
+            "example" : "III",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "ScimEnterpriseUserExtension" : {
+        "description" : "SCIM Enterprise User Schema Extension fields as defined in RFC 7643 section 4.3.\n",
+        "properties" : {
+          "employeeNumber" : {
+            "description" : "A string identifier assigned to a person, typically based on order of hire or association with an organization.\n",
+            "type" : "string"
+          },
+          "costCenter" : {
+            "description" : "Identifies the name of a cost center.\n",
+            "type" : "string"
+          },
+          "organization" : {
+            "description" : "Identifies the name of an organization.\n",
+            "type" : "string"
+          },
+          "division" : {
+            "description" : "Identifies the name of a division.\n",
+            "type" : "string"
+          },
+          "department" : {
+            "description" : "Identifies the name of a department.\n",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "ToolResultItem" : {
+        "properties" : {
+          "result" : {
+            "description" : "The content/result text from the tool execution.\n",
+            "example" : "To authenticate with the API, use a Bearer token...",
+            "type" : "string"
+          },
+          "url" : {
+            "description" : "An optional URL associated with this result item (e.g., for documentation sources).\n",
+            "example" : "https://docs.example.com/auth",
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "required" : [ "result" ],
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "ApiKeyBearerAuth" : {
+        "bearerFormat" : "Unblocked API Key",
+        "description" : "The API key to authenticate requests. Obtainable from the web dashboard.",
+        "scheme" : "bearer",
+        "type" : "http"
+      }
+    }
+  },
+  "x-tagGroups" : [ {
+    "name" : "Resources",
+    "tags" : [ "Collections", "Documents", "Answers" ]
+  } ]
+}

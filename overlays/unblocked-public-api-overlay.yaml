@@ -1,0 +1,31 @@
+# generated: 2026-07-21 | method: generated | source: API Evangelist enrichment pipeline
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Unblocked Public API
+  version: 1.0.0
+extends: openapi/unblocked-public-api-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist:
+        provider: unblocked
+        harvested: '2026-07-21'
+        source: https://getunblocked.com/api/v1/public-api.json
+        conventions: conventions/unblocked-conventions.yml
+        errors: errors/unblocked-problem-types.yml
+        authentication: authentication/unblocked-authentication.yml
+  - target: $.paths['/answers/{questionId}'].put
+    update:
+      x-idempotent: true
+      x-notes: >-
+        questionId is a client-generated globally unique UUID; retries with the
+        same UUID are safe. Asynchronous: poll GET /answers/{questionId} for
+        state processing|complete. Daily quota 1,000 questions/org (429 when
+        exceeded).
+  - target: $.paths['/documents'].put
+    update:
+      x-idempotent: true
+      x-notes: Upsert keyed by document uri; repeated PUTs update rather than duplicate.
+  - target: $.paths['/answers'].get
+    update:
+      x-notes: PAT keys return only the calling user's questions; organization-wide keys return all questions.

@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://docs.getunblocked.com/unblocked-mcp/mcp-overview
+description: >-
+  Unblocked ships an official MCP server. On macOS it is built and run by the
+  Unblocked CLI (`unblocked mcp`, JSON-RPC over stdio), installed one-shot via
+  `curl -fsSL https://getunblocked.com/install-mcp.sh | bash`, which
+  auto-configures Claude Code, Claude Desktop, Codex, Cursor, Windsurf, and
+  other detected agents and installs the companion Agent Skills. A hosted
+  remote MCP server is also offered for Windows/Linux and remote setups
+  (per-agent install guides); the OAuth authorization server backing remote
+  MCP auth is published at
+  https://getunblocked.com/.well-known/oauth-authorization-server
+  (authorization-code + refresh, PKCE S256, dynamic client registration).
+docs: https://docs.getunblocked.com/unblocked-mcp/mcp-overview
+server:
+  name: unblocked
+  transport: stdio
+  run: unblocked mcp
+  install: curl -fsSL https://getunblocked.com/install-mcp.sh | bash
+  auth: browser flow (unblocked auth) or UNBLOCKED_API_TOKEN for headless/CI
+remote:
+  available: true
+  url: https://getunblocked.com/api/mcpsse
+  transport: http   # streamable HTTP; HTTP+SSE explicitly NOT supported despite the /mcpsse path
+  auth: >-
+    OAuth (MCP client authenticates via the authorization server published at
+    /.well-known/oauth-authorization-server) or token-based with header
+    "Authorization: Bearer <unb_... personal or team API token>".
+  docs: https://docs.getunblocked.com/unblocked-mcp/install-other
+  note: SSO-enforced organizations authenticate via SAML (changelog 2026-06-26 fixed remote MCP SAML re-authentication).
+tools:
+  - name: context_research
+    description: Multi-source research across code, PRs, docs, issues, and messaging; returns a synthesized answer with citations. Supports effort levels low|medium|high.
+    docs: https://docs.getunblocked.com/unblocked-mcp/mcp-context-research
+  - name: context_get_urls
+    description: Fetches and returns the content behind one or more URLs the agent encounters (PRs, issues, docs, message threads).
+    docs: https://docs.getunblocked.com/unblocked-mcp/mcp-context-get-urls
+skills:
+  description: Each MCP tool has a corresponding open-source Agent Skill (Agent Skills specification) teaching agents when and how to use it.
+  repo: https://github.com/unblocked/skills
+  cookbook: https://github.com/unblocked/cookbook

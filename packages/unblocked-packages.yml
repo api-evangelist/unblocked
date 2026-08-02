@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+source: https://registry.npmjs.org/@getunblocked/sdk
+description: >-
+  First-party Unblocked client libraries and tools, verified against the
+  public registries. The npm SDK is published by the unblocked-npmjs account
+  (services@getunblocked.com) from the github.com/unblocked org. PyPI's
+  "unblocked" package is an unrelated third-party project (background tasks
+  library) and is deliberately excluded. The Unblocked CLI is distributed as a
+  binary via install scripts, not through a package registry.
+packages:
+  - language: typescript
+    registry: npm
+    name: "@getunblocked/sdk"
+    url: https://www.npmjs.com/package/@getunblocked/sdk
+    source: https://github.com/unblocked/unblocked-typescript-sdk
+    install: npm install @getunblocked/sdk
+    description: Lightweight TypeScript SDK for the Unblocked Public API.
+    latest: 0.1.5
+    official: true
+  - language: binary
+    registry: install-script
+    name: unblocked (CLI)
+    url: https://docs.getunblocked.com/unblocked-cli/cli-install
+    install: curl -fsSL https://getunblocked.com/install.sh | bash
+    description: Unblocked CLI binary (macOS); runs the MCP server, installs Agent Skills, exposes context-* commands. Surface in cli/unblocked-cli.yml.
+    official: true
+not_found:
+  - {registry: pypi, note: no first-party package ("unblocked" on PyPI is an unrelated third-party library)}
+  - {registry: maven-central, note: none found}
+  - {registry: nuget, note: none found}
+  - {registry: rubygems, note: none found}
+  - {registry: packagist, note: none found}
+  - {registry: crates.io, note: none found}
+  - {registry: pkg.go.dev, note: none found}

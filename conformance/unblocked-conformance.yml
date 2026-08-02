@@ -1,0 +1,47 @@
+generated: '2026-07-21'
+method: searched
+source: https://getunblocked.com/security/ + openapi/unblocked-public-api-openapi-original.json
+description: >-
+  Industry and cross-cutting standards conformance for Unblocked, from
+  published compliance claims (security page + SafeBase trust center) and
+  derived from the published OpenAPI and RFC 8414 metadata.
+standards:
+  - id: soc2-type2
+    conforms: true
+    evidence: 'AICPA SOC 2 Type II listed at https://getunblocked.com/security/ and https://trust.getunblocked.com/'
+  - id: soc3
+    conforms: true
+    evidence: SOC 3 listed on the SafeBase trust center.
+  - id: casa-tier2
+    conforms: true
+    evidence: CASA Tier 2 (App Defense Alliance Cloud Application Security Assessment) listed on security page and trust center.
+  - id: gdpr
+    conforms: true
+    evidence: GDPR listed on security page and trust center; DPA and subprocessor list published in the trust center.
+  - id: oauth2
+    conforms: true
+    evidence: RFC 8414 authorization-server metadata at /.well-known/oauth-authorization-server (authorization_code + refresh_token, PKCE S256, dynamic client registration); remote MCP OAuth.
+  - id: saml-2.0
+    conforms: true
+    evidence: SAML 2.0 SSO documented for Okta, Entra ID, Google Workspace, AWS Identity Center, PingOne, and any SAML 2.0 provider (docs team-settings/sso).
+  - id: scim-2.0
+    conforms: true
+    evidence: SCIM provisioning documented (RFC 7643/7644 User/Group schemas including the Enterprise User extension appear in the published OpenAPI components; changelog 2026-06-12 notes enterprise field support).
+  - id: rfc8288-web-linking
+    conforms: true
+    evidence: List pagination signals next/prev pages via the RFC 8288 link response header (docs api-reference/pagination).
+  - id: cursor-pagination
+    conforms: true
+    evidence: Opaque, stateless, never-expiring cursors with limit/after/before parameters (OpenAPI Cursor schema).
+  - id: idempotency
+    conforms: true
+    evidence: Idempotent PUT writes keyed by client-generated UUID (askQuestion) and by unique document uri (putDocument); see conventions/unblocked-conventions.yml.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a minimal { status } JSON envelope, not application/problem+json.
+  - id: mcp
+    conforms: true
+    evidence: Official MCP server (stdio via CLI + remote streamable HTTP at getunblocked.com/api/mcpsse); mcp/unblocked-mcp.yml.
+  - id: agent-skills-specification
+    conforms: true
+    evidence: Provider-published Agent Skills following the open Agent Skills specification (agentskills.io) at github.com/unblocked/skills.

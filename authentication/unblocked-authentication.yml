@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.getunblocked.com/api-reference/quickstart
+docs: https://docs.getunblocked.com/api-reference/quickstart
+description: >-
+  Authentication profile for the Unblocked Public API and tooling surface,
+  captured from the API quickstart, the published OpenAPI securitySchemes, the
+  CLI auth docs, and the OAuth authorization-server metadata published at
+  /.well-known/oauth-authorization-server on getunblocked.com.
+summary:
+  types: [http-bearer, oauth2]
+  api_key_in: [header]
+  oauth2_flows: [authorizationCode]
+schemes:
+  - name: ApiKeyBearerAuth
+    type: http
+    scheme: bearer
+    bearerFormat: Unblocked API Key
+    description: >-
+      API token sent as `Authorization: Bearer <token>` on every request.
+      Obtainable from the web dashboard under Settings -> API Tokens.
+    sources: [openapi/unblocked-public-api-openapi-original.json]
+  - name: oauth-authorization-server
+    type: oauth2
+    description: >-
+      OAuth 2.0 authorization server published via RFC 8414 metadata at
+      https://getunblocked.com/.well-known/oauth-authorization-server (used by
+      the remote MCP integration). Authorization-code + refresh-token grants,
+      PKCE S256 required option, dynamic client registration with no auth.
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://getunblocked.com/dashboard/login/oauth
+        tokenUrl: https://getunblocked.com/api/auth/oauth/token
+    registration_endpoint: https://getunblocked.com/api/auth/oauth/register
+    revocation_endpoint: https://getunblocked.com/api/auth/oauth/revoke
+    jwks_uri: https://getunblocked.com/api/auth/oauth/jwks
+    code_challenge_methods: [S256]
+    grant_types: [authorization_code, refresh_token]
+    sources: [well-known/unblocked-oauth-authorization-server.json]
+token_types:
+  - name: Personal Access Token
+    scope: Individual user account; user-level isolation on the Answers API (only that user's questions are returned).
+    limits: 1,000 API calls per day
+    data_source_scoping: Token can be limited to specific data sources at creation time.
+  - name: Team Access Token
+    scope: Organization-wide; grants access to all documents in the team's data sources.
+    guidance: Rotate regularly; use carefully.
+    data_source_scoping: Token can be limited to specific data sources at creation time.
+cli_and_ci: >-
+  The CLI authenticates interactively via `unblocked auth` (browser flow) or
+  headlessly via the UNBLOCKED_API_TOKEN environment variable using the same
+  personal/team tokens.
+sso: >-
+  End-user sign-in supports SAML 2.0 SSO (Okta, Microsoft Entra ID, Google
+  Workspace, AWS Identity Center, PingOne, and other SAML providers) plus SCIM
+  provisioning; documented under team-settings/sso in the provider docs.

@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+probe: true
+source: https://trust.getunblocked.com/
+url: https://trust.getunblocked.com/
+description: >-
+  Unblocked (legal entity Next Chapter Software Inc) operates a SafeBase trust
+  center at trust.getunblocked.com, linked from the security page at
+  getunblocked.com/security. It lists compliance certifications and gated
+  documents (pentest report, cyber insurance, policies for backup, BC/DR,
+  data classification/protection/retention, encryption, subprocessors, DPA)
+  plus AI-specific sections (AI Security, AI Monitoring, AI Risk Management).
+legal_entity: Next Chapter Software Inc
+platform: SafeBase
+certifications:
+- SOC 2 Type II
+- SOC 3
+- CASA Tier 2
+- GDPR
+security_page:
+  url: https://getunblocked.com/security/
+  highlights:
+    - TLS in transit; encryption at rest with AWS-managed keys; customer-specific keys across network layers.
+    - Customer data never used to train shared models; data removed on deletion.
+    - No stored passwords; authentication via SAML SSO or OAuth 2.0 to the customer identity provider.
+    - Ongoing penetration testing, static/dynamic scans, code scanning; background checks and security training for employees.
+evidence:
+- source: https://trust.getunblocked.com/
+  keywords:
+  - soc 2 type 2
+  - soc 3
+  - casa tier 2
+  - gdpr
+  - trust center
+  - penetration testing
+- source: https://getunblocked.com/security/
+  keywords:
+  - SOC 2 Type II
+  - CASA Tier II
+  - GDPR

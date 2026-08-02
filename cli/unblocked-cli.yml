@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.getunblocked.com/unblocked-cli/cli-overview
+description: >-
+  The Unblocked CLI (`unblocked`) command surface, captured from the official
+  CLI documentation. The CLI is the single binary that runs the Unblocked MCP
+  server (JSON-RPC over stdio), installs Agent Skills into AI coding agents,
+  and exposes Unblocked's organizational context as standalone context-*
+  commands for scripts and CI. macOS only at capture time; Windows/Linux users
+  connect to the remote MCP server instead.
+docs: https://docs.getunblocked.com/unblocked-cli/cli-overview
+binary: unblocked
+platforms: [macos]
+install:
+  script_full: curl -fsSL https://getunblocked.com/install-mcp.sh | bash   # CLI + MCP + skills, then browser auth
+  script_cli_only: curl -fsSL https://getunblocked.com/install.sh | bash   # binary only, no IDE config
+  location: ~/.local/bin/unblocked
+  update: unblocked update
+  uninstall: unblocked uninstall
+auth:
+  interactive: unblocked auth   # browser-based flow, token cached locally
+  headless: UNBLOCKED_API_TOKEN environment variable (personal or team API token from Unblocked settings)
+  docs: https://docs.getunblocked.com/unblocked-cli/cli-auth
+commands:
+  install_setup:
+    - {name: install, description: Configure every detected IDE/agent with the MCP server and install skills.}
+    - {name: install-mcp, description: Configure detected IDEs with the MCP server only (no skills).}
+    - {name: install-skills, description: Install or refresh Unblocked skills into each detected agent (canonical store ~/.agents/skills/, symlinked per agent).}
+    - {name: update, description: Check for and apply available CLI updates in place.}
+    - {name: uninstall, description: Remove the CLI binary, MCP configs, skills, and cached auth tokens.}
+  auth:
+    - {name: auth, description: Run the browser-based authentication flow and cache the token locally.}
+  mcp:
+    - {name: mcp, description: Run the Unblocked MCP server (JSON-RPC over stdio).}
+  context_query:
+    - {name: context-research, description: 'Multi-source research across code, PRs, docs, issues, and messaging; returns synthesized context with citations. Flags: --query (required), --instruction, --effort low|medium|high.'}
+    - {name: context-search-code, description: Semantic search over connected code sources for files, symbols, and snippets.}
+    - {name: context-search-documentation, description: Semantic search over wikis, Notion, Confluence, and other documentation sources.}
+    - {name: context-search-issues, description: Semantic search over Jira, Linear, GitHub Issues, and other issue trackers.}
+    - {name: context-search-messages, description: Semantic search over Slack, Teams, and other messaging sources.}
+    - {name: context-search-prs, description: Semantic search over pull requests and merge requests in connected version control.}
+    - {name: context-query-issues, description: 'Retrieve issues via structured natural-language query. Flags: --query, --projects (repeatable), --user-name.'}
+    - {name: context-query-prs, description: Retrieve pull requests via structured natural-language query.}
+    - {name: context-get-urls, description: Fetch the content behind one or more URLs (--urls, once per URL).}
+global_options:
+  - {flag: --version, description: Display the CLI version and build number.}
+  - {flag: --help, description: Show the top-level command list.}
+output: 'Every context-* command returns a single JSON document on stdout; errors are {"error": CODE, "message": ...} with a non-zero exit code.'
+notes:
+  - The CLI is actively evolving; command names, flags, and output shapes may change.
+  - Each CLI run auto-refreshes installed skills from GitHub (github.com/unblocked/skills); locally modified skills stop receiving updates.

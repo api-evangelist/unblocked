@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+source: https://status.getunblocked.com + https://docs.getunblocked.com/changelog
+description: >-
+  Lifecycle posture for the Unblocked Public API. URI-path versioning (v1), a
+  live status page with uptime history, and a weekly dated product changelog.
+  No published deprecation policy, Sunset/Deprecation header support, or SLA
+  document was found at capture time, and the OpenAPI declares no deprecated
+  operations.
+versioning:
+  scheme: uri-path
+  current: v1
+  base: https://getunblocked.com/api/v1
+status_page: https://status.getunblocked.com
+status_page_notes: '"Unblocked status" — services + backend uptime (99.988% shown at capture), maintenance and previous incidents.'
+changelog: https://docs.getunblocked.com/changelog
+changelog_detail: changelog/unblocked-changelog.yml
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation policy found; docs note the CLI and MCP tool surface are "actively evolving" and may change.
+sla: null
+deprecated_operations: []

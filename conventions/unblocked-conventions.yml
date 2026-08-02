@@ -1,0 +1,64 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.getunblocked.com/api-reference/quickstart +
+  https://docs.getunblocked.com/api-reference/pagination + the published
+  OpenAPI (openapi/unblocked-public-api-openapi-original.json)
+description: >-
+  Cross-cutting request/response conventions of the Unblocked Public API:
+  bearer authentication, RFC 8288 Link-header cursor pagination, idempotent
+  PUT-with-client-generated-UUID write semantics, documented rate limits and
+  quotas, and the JSON error envelope.
+base_url: https://getunblocked.com/api/v1
+api_style: REST over HTTPS, JSON requests and responses
+authentication:
+  scheme: 'HTTP Bearer: Authorization: Bearer <token> (personal or team API token from the dashboard)'
+  docs: https://docs.getunblocked.com/api-reference/quickstart
+  detail: authentication/unblocked-authentication.yml
+idempotency:
+  supported: true
+  mechanism: idempotent PUT with client-generated identifiers (no separate Idempotency-Key header)
+  detail: >-
+    Write operations are modeled as idempotent PUTs keyed by client-supplied
+    identifiers: askQuestion is `PUT /answers/{questionId}` where questionId
+    must be a client-generated globally unique UUID (safe to retry; the same
+    question is not queued twice), and putDocument upserts by the document
+    `uri`, which uniquely identifies a document across the organization
+    (repeat PUTs update rather than duplicate).
+  evidence:
+    - 'quickstart: "submit your question using a unique questionId (must be a globally unique UUID)"'
+    - 'openapi putDocument: "Documents are unique by uri ... If the document for uri exists, it will be updated."'
+pagination:
+  style: cursor (opaque, stateless, never-expiring cursors)
+  params: [limit, after, before]
+  limits: 1-200 items per page, default 25
+  response_signal: RFC 8288 `link` response header with rel="next" / rel="prev"; header omitted when all results fit on one page
+  caveat: Server may return fewer results than the requested limit; clients must not treat a short page as the final page.
+  docs: https://docs.getunblocked.com/api-reference/pagination
+field_expansion: none documented
+metadata: none documented
+request_tracing: none documented (no request-id header documented)
+versioning:
+  scheme: URI path (/api/v1)
+  current: v1
+error_envelope:
+  shape: 'JSON object: { "status": <HTTP status code> }'
+  content_type: application/json (default error response is text/plain)
+  detail: errors/unblocked-problem-types.yml
+rate_limits:
+  - surface: Answers API
+    limit: 1,000 questions per day per organization; quota resets midnight PST; exceeding returns 429 Too Many Requests
+  - surface: Personal Access Tokens
+    limit: 1,000 API calls per day
+  - surface: Request size
+    limit: 10 MB maximum per request
+  - surface: Collections
+    limit: maximum 25 collections per team
+async_pattern: >-
+  The Answers API is asynchronous: PUT the question (204 No Content), then poll
+  GET /answers/{questionId}; responses carry state processing|complete, with
+  answers returned in Markdown plus source references.
+related:
+  errors: errors/unblocked-problem-types.yml
+  lifecycle: lifecycle/unblocked-lifecycle.yml
+  authentication: authentication/unblocked-authentication.yml

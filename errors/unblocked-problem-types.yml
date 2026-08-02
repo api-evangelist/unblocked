@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/unblocked-public-api-openapi-original.json
+description: >-
+  Error catalog derived from the 4xx/5xx responses declared in the published
+  Unblocked Public API OpenAPI. The API does not use RFC 9457
+  application/problem+json; errors return a minimal JSON envelope
+  { "status": <code> } (components.responses.ErrorResponse), with a text/plain
+  fallback for the default response.
+format: json-envelope   # not rfc9457; envelope is { status: <int> }
+envelope:
+  content_type: application/json
+  schema: '{ "status": integer (the HTTP status code) }'
+  default_response: text/plain "An error occurred."
+problems:
+  - status: 400
+    title: Bad Request
+    detail: Invalid request body or field constraint violation (e.g. collection name 1-32 chars, description 1-4096 chars).
+    source_operations: [askQuestion, createCollection, saveCollection, putDocument]
+  - status: 401
+    title: Unauthorized
+    detail: Missing or invalid API token in the Authorization Bearer header.
+    source_operations: [listAnswers, getAnswer, askQuestion, deleteAnswer, listCollections, createCollection, getCollection, saveCollection, deleteCollection, listDocuments, putDocument, deleteDocument]
+  - status: 403
+    title: Forbidden
+    detail: Token lacks access to the resource (e.g. PAT user-level isolation on the Answers API, data-source-scoped tokens).
+    source_operations: [listAnswers, getAnswer, askQuestion, deleteAnswer]
+  - status: 404
+    title: Not Found
+    detail: Resource does not exist (unknown questionId or collectionId).
+    source_operations: [getAnswer, deleteAnswer, getCollection, saveCollection]
+  - status: 429
+    title: Too Many Requests
+    detail: Answers API daily quota exceeded (1,000 questions per day per organization; resets midnight PST).
+    source_operations: [askQuestion]
+  - status: 500
+    title: Internal Server Error
+    detail: Unexpected server-side failure.
+    source_operations: [listAnswers, getAnswer, askQuestion, deleteAnswer, listCollections, createCollection, getCollection, saveCollection, deleteCollection, listDocuments, putDocument, deleteDocument]

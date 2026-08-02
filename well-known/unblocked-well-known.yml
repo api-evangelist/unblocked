@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface on the Unblocked
+  hosts (getunblocked.com — website + API base host — and
+  docs.getunblocked.com). Status is the HTTP code observed at fetch time
+  (2026-07-21). The one real hit is the RFC 8414 OAuth authorization-server
+  metadata on getunblocked.com, which backs the remote MCP OAuth flow; it was
+  saved verbatim as unblocked-oauth-authorization-server.json.
+hosts:
+  - host: https://getunblocked.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: unblocked-oauth-authorization-server.json
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://docs.getunblocked.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404

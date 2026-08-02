@@ -1,0 +1,47 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.getunblocked.com/changelog
+description: >-
+  Unblocked's dated product changelog ("Product updates"), captured from the
+  live docs. Weekly-cadence dated entries covering new features, improvements,
+  and bug fixes across the product, API, CLI, and MCP surface. Recent window
+  only; the live changelog is the source of truth.
+docs: https://docs.getunblocked.com/changelog
+scheme: dated entries (no semantic version numbers); roughly weekly cadence
+entries:
+  - date: '2026-07-17'
+    highlights:
+      - 'Improvement: self-service license removal for admins.'
+      - 'Improvement: risk policy criteria field extended to 4,000 characters.'
+      - 'Fixes: personal memories in Slack/Teams, Excel ingestion failures (SharePoint/Google Drive), malformed MCP answers with certain clients/models.'
+  - date: '2026-07-10'
+    highlights:
+      - 'Microsoft SharePoint data source generally available (respects Data Shield access controls).'
+      - 'Slack answers preserve inline formatting inside table cells.'
+      - 'Fixes: Slack workflow-bot repo access with Data Shield off, code search for users with no PR history, Google Drive listings across shared drives.'
+  - date: '2026-07-03'
+    highlights:
+      - 'Microsoft SharePoint data source (beta).'
+      - 'Auto-generated pull request descriptions now lead with a sourced Context section.'
+      - 'Native Slack table blocks for markdown tables.'
+  - date: '2026-06-26'
+    highlights:
+      - 'Exclude folders from Google Drive ingestion with purge action.'
+      - 'Risk Assessment reports render on Bitbucket and Azure DevOps.'
+      - 'Sprint-aware Jira questions; Jira status kept visible in search.'
+      - 'Fixes: remote MCP blocked by SAML re-auth for SSO-enforced orgs, GitLab self-hosted login/webhooks, CLI context research URL-with-spaces errors, API calls failing in Firefox.'
+  - date: '2026-06-19'
+    highlights:
+      - 'Aligned ASCII tables in Slack answers; faster Asana ingestion for large workspaces.'
+  - date: '2026-06-12'
+    highlights:
+      - 'Skills: reusable personal and shared team instructions for answering specific kinds of questions.'
+      - 'Google Sheets ingestion in Google Drive; Slides speaker notes captured.'
+      - 'Code review reads existing PR comment threads before reviewing.'
+      - 'SCIM Enterprise User Schema Extension fields supported (employeeNumber, costCenter, organization, division, department).'
+      - 'Fix: CLI silently deleting stored personal access token.'
+  - date: '2026-05-29'
+    highlights:
+      - 'Risk-based auto-approval in code review (low-risk only; human review required for medium and above).'
+      - 'Repo-level risk policies via .unblocked/risk-policies.yaml.'
+      - 'Data Shield re-authorization checks for Jira and Confluence.'
