@@ -105,6 +105,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/unblocked-public-api-overlay.yaml
 - type: Website
   url: https://getunblocked.com
 - type: DeveloperPortal
