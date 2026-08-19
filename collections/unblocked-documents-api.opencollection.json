@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unblocked Public API Reference Answers Documents API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://getunblocked.com/api/v1/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all documents.\n"
+        },
+        {
+          "info": {
+            "name": "Put Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://getunblocked.com/api/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to create or update a document for a given collection.\n\nDocuments are unique by `uri` across your organization.\nIf the document for `uri` does not exist, it will be created.\nIf the document for `uri` exists, it will be updated.\nOn success, an ID for the created or updated document will be returned.\n\nDocuments created or updated may take up to a minute to be available for use.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://getunblocked.com/api/v1/documents/:documentId",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a document from the collection.\n\nRemoved documents may take up to a minute to be removed from the system.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

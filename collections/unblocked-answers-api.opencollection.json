@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unblocked Public API Reference Answers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Answers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://getunblocked.com/api/v1/answers",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "\nList all questions and answers for your organization, ordered by creation time (newest first).\n\n**Authentication behavior:**\n- **Personal Access Token (PAT) keys**: Only questions asked by that specific user are returned (user-level isolation)\n- **Organization-wide API keys**: All questions in the organization are returned\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://getunblocked.com/api/v1/answers/:questionId",
+            "params": [
+              {
+                "name": "questionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer.\n"
+        },
+        {
+          "info": {
+            "name": "Ask a Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://getunblocked.com/api/v1/answers/:questionId",
+            "params": [
+              {
+                "name": "questionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://getunblocked.com/api/v1/answers/:questionId",
+            "params": [
+              {
+                "name": "questionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete a question and its associated answer. This operation cannot be undone.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
