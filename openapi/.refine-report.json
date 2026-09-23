@@ -1,9 +1,7 @@
 {
   "provider": "unblocked",
   "sources": [
-    "unblocked-answers-api-openapi.yml",
-    "unblocked-collections-api-openapi.yml",
-    "unblocked-documents-api-openapi.yml"
+    "_original/unblocked-public-api-openapi-original.json"
   ],
   "outputs": [
     "unblocked-answers-api-openapi.yml",
@@ -13,6 +11,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "unblocked-public-api-openapi-original.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "unblocked-answers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "unblocked-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "unblocked-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

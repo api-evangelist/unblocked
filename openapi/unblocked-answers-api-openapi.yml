@@ -1,9 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     email: help@getunblocked.com
     name: Unblocked
-  description: "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n"
+  description: The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.
   title: Unblocked Public API Reference Answers API
   version: v1
   x-logo:
@@ -14,25 +14,19 @@ servers:
 security:
 - ApiKeyBearerAuth: []
 tags:
-- description: 'Ask Unblocked questions and retrieve answers asynchronously. Submit a question using the PUT endpoint and poll for the response using the GET endpoint.
-
-    '
+- description: Ask Unblocked questions and retrieve answers asynchronously. Submit a question using the PUT endpoint and poll for the response using the GET endpoint.
   name: Answers
 paths:
   /answers:
     get:
-      description: '
-
-        List all questions and answers for your organization, ordered by creation time (newest first).
+      description: 'List all questions and answers for your organization, ordered by creation time (newest first).
 
 
         **Authentication behavior:**
 
         - **Personal Access Token (PAT) keys**: Only questions asked by that specific user are returned (user-level isolation)
 
-        - **Organization-wide API keys**: All questions in the organization are returned
-
-        '
+        - **Organization-wide API keys**: All questions in the organization are returned'
       operationId: listAnswers
       parameters:
       - description: 'Limit used to constrain results of list operations. When not specified a default limit of 25 is used.
@@ -82,9 +76,7 @@ paths:
       - Answers
   /answers/{questionId}:
     delete:
-      description: 'Permanently delete a question and its associated answer. This operation cannot be undone.
-
-        '
+      description: Permanently delete a question and its associated answer. This operation cannot be undone.
       operationId: deleteAnswer
       parameters:
       - in: path
@@ -107,9 +99,7 @@ paths:
       tags:
       - Answers
     get:
-      description: 'Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer.
-
-        '
+      description: Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer.
       operationId: getAnswer
       parameters:
       - in: path
@@ -136,9 +126,7 @@ paths:
       tags:
       - Answers
     put:
-      description: 'Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response.
-
-        '
+      description: Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response.
       operationId: askQuestion
       parameters:
       - in: path
@@ -170,6 +158,10 @@ paths:
       - Answers
 components:
   schemas:
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
     Answer:
       properties:
         state:
@@ -195,13 +187,6 @@ components:
       required:
       - state
       type: object
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
-      type: string
     Question:
       properties:
         question:
@@ -210,6 +195,13 @@ components:
       required:
       - question
       type: object
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
     Reference:
       properties:
         htmlUrl:
@@ -217,10 +209,6 @@ components:
       required:
       - htmlUrl
       type: object
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
-      type: string
   responses:
     ErrorResponse:
       content:

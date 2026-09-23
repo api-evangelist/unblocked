@@ -1,10 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     email: help@getunblocked.com
     name: Unblocked
-  description: "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n"
-  title: Unblocked Public API Reference Answers Documents API
+  description: The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.
+  title: Unblocked Public API Reference Documents API
   version: v1
   x-logo:
     url: https://avatars.githubusercontent.com/u/91906527?s=300
@@ -17,16 +17,12 @@ tags:
 - description: 'A document contains content that Unblocked uses to answer questions. Each document is associated with a collection, so you must create a collection before adding documents. Documents used to provide answers will appear as references in the Unblocked interface.
 
 
-    You can create and delete documents as needed.
-
-    '
+    You can create and delete documents as needed.'
   name: Documents
 paths:
   /documents:
     get:
-      description: 'List all documents.
-
-        '
+      description: List all documents.
       operationId: listDocuments
       parameters:
       - description: 'Limit used to constrain results of list operations. When not specified a default limit of 25 is used.
@@ -85,9 +81,7 @@ paths:
         On success, an ID for the created or updated document will be returned.
 
 
-        Documents created or updated may take up to a minute to be available for use.
-
-        '
+        Documents created or updated may take up to a minute to be available for use.'
       operationId: putDocument
       requestBody:
         content:
@@ -116,9 +110,7 @@ paths:
       description: 'Remove a document from the collection.
 
 
-        Removed documents may take up to a minute to be removed from the system.
-
-        '
+        Removed documents may take up to a minute to be removed from the system.'
       operationId: deleteDocument
       parameters:
       - in: path
@@ -140,18 +132,10 @@ paths:
       - Documents
 components:
   schemas:
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
       type: string
-    PutDocumentResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/ApiResourceId'
-      type: object
     PutDocumentRequest:
       properties:
         collectionId:
@@ -217,9 +201,17 @@ components:
       - updatedAt
       - uri
       type: object
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
+    PutDocumentResponse:
+      properties:
+        id:
+          $ref: '#/components/schemas/ApiResourceId'
+      type: object
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
       type: string
   responses:
     ErrorResponse:

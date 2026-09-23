@@ -1,10 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     email: help@getunblocked.com
     name: Unblocked
-  description: "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n"
-  title: Unblocked Public API Reference Answers Collections API
+  description: The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.
+  title: Unblocked Public API Reference Collections API
   version: v1
   x-logo:
     url: https://avatars.githubusercontent.com/u/91906527?s=300
@@ -23,16 +23,12 @@ tags:
     You have the ability to list, create, update, and delete them as needed.
 
 
-    Deleting a collection will also remove all the associated documents.
-
-    '
+    Deleting a collection will also remove all the associated documents.'
   name: Collections
 paths:
   /collections:
     get:
-      description: 'List all collections.
-
-        '
+      description: List all collections.
       operationId: listCollections
       parameters:
       - description: 'Limit used to constrain results of list operations. When not specified a default limit of 25 is used.
@@ -86,9 +82,7 @@ paths:
 
         - Collection name: 1-32 characters
 
-        - Collection description: 1-4096 characters
-
-        '
+        - Collection description: 1-4096 characters'
       operationId: createCollection
       requestBody:
         content:
@@ -117,9 +111,7 @@ paths:
       description: 'Delete a collection.
 
 
-        Deleting a collection will also delete all of its associated documents.
-
-        '
+        Deleting a collection will also delete all of its associated documents.'
       operationId: deleteCollection
       parameters:
       - in: path
@@ -140,9 +132,7 @@ paths:
       tags:
       - Collections
     get:
-      description: 'Get a collection.
-
-        '
+      description: Get a collection.
       operationId: getCollection
       parameters:
       - in: path
@@ -169,9 +159,7 @@ paths:
       tags:
       - Collections
     patch:
-      description: 'Update a collection.
-
-        '
+      description: Update a collection.
       operationId: saveCollection
       parameters:
       - in: path
@@ -202,14 +190,21 @@ paths:
       tags:
       - Collections
 components:
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              status:
+                description: The HTTP status code
+                example: 400
+                type: integer
+            required:
+            - status
+            type: object
+      description: Error response
   schemas:
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
-      type: string
     Collection:
       properties:
         id:
@@ -269,20 +264,13 @@ components:
           example: https://my.company.com/apollo/logo.svg
           type: string
       type: object
-  responses:
-    ErrorResponse:
-      content:
-        application/json:
-          schema:
-            properties:
-              status:
-                description: The HTTP status code
-                example: 400
-                type: integer
-            required:
-            - status
-            type: object
-      description: Error response
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
   headers:
     Link:
       description: 'A link header providing navigation links related to the response.
