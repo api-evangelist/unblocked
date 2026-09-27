@@ -136,6 +136,18 @@ components:
       description: The ID of a resource that can be retrieved from the service.
       format: uuid
       type: string
+    PutDocumentResponse:
+      properties:
+        id:
+          $ref: '#/components/schemas/ApiResourceId'
+      type: object
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
     PutDocumentRequest:
       properties:
         collectionId:
@@ -201,18 +213,6 @@ components:
       - updatedAt
       - uri
       type: object
-    PutDocumentResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/ApiResourceId'
-      type: object
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
-      type: string
   responses:
     ErrorResponse:
       content:

@@ -205,35 +205,6 @@ components:
             type: object
       description: Error response
   schemas:
-    Collection:
-      properties:
-        id:
-          description: 'The ID of the collection.
-
-            '
-          format: uuid
-          type: string
-        name:
-          description: 'A brief identifier for the collection.
-
-            '
-          example: Apollo
-          type: string
-        description:
-          description: 'A sentence defining the document type within this collection, aiding the language model in grasping the content''s essence.
-
-            '
-          example: Documents from the Apollo customer support tool including support responses.
-          type: string
-        iconUrl:
-          description: 'A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.
-
-            '
-          example: https://my.company.com/apollo/logo.svg
-          type: string
-      required:
-      - id
-      type: object
     CollectionRequest:
       properties:
         name:
@@ -263,6 +234,35 @@ components:
             '
           example: https://my.company.com/apollo/logo.svg
           type: string
+      type: object
+    Collection:
+      properties:
+        id:
+          description: 'The ID of the collection.
+
+            '
+          format: uuid
+          type: string
+        name:
+          description: 'A brief identifier for the collection.
+
+            '
+          example: Apollo
+          type: string
+        description:
+          description: 'A sentence defining the document type within this collection, aiding the language model in grasping the content''s essence.
+
+            '
+          example: Documents from the Apollo customer support tool including support responses.
+          type: string
+        iconUrl:
+          description: 'A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.
+
+            '
+          example: https://my.company.com/apollo/logo.svg
+          type: string
+      required:
+      - id
       type: object
     Cursor:
       description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.

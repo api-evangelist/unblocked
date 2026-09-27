@@ -48,7 +48,7 @@ tags:
 - Developer Tools
 - Artificial Intelligence
 - Developer Experience
-- Knowledge-Management
+- Knowledge Management
 - Code Review
 - MCP
 - AI Agents
@@ -65,6 +65,7 @@ tags_raw:
 - AI Agents
 - Context Engineering
 - Search
+- Knowledge-Management
 apis:
 - aid: unblocked:unblocked-answers-api
   name: Unblocked Answers API
