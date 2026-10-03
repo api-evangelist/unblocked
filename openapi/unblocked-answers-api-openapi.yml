@@ -158,17 +158,6 @@ paths:
       - Answers
 components:
   schemas:
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
-      type: string
-    Reference:
-      properties:
-        htmlUrl:
-          type: string
-      required:
-      - htmlUrl
-      type: object
     Question:
       properties:
         question:
@@ -177,13 +166,13 @@ components:
       required:
       - question
       type: object
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
-      type: string
+    Reference:
+      properties:
+        htmlUrl:
+          type: string
+      required:
+      - htmlUrl
+      type: object
     Answer:
       properties:
         state:
@@ -209,6 +198,25 @@ components:
       required:
       - state
       type: object
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
+  headers:
+    Link:
+      description: 'A link header providing navigation links related to the response.
+
+        '
+      example: <https://api.example.com/some/resource>; rel="next"
+      schema:
+        type: string
   responses:
     ErrorResponse:
       content:
@@ -223,14 +231,6 @@ components:
             - status
             type: object
       description: Error response
-  headers:
-    Link:
-      description: 'A link header providing navigation links related to the response.
-
-        '
-      example: <https://api.example.com/some/resource>; rel="next"
-      schema:
-        type: string
   securitySchemes:
     ApiKeyBearerAuth:
       bearerFormat: Unblocked API Key

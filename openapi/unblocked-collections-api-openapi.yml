@@ -204,37 +204,15 @@ components:
             - status
             type: object
       description: Error response
+  headers:
+    Link:
+      description: 'A link header providing navigation links related to the response.
+
+        '
+      example: <https://api.example.com/some/resource>; rel="next"
+      schema:
+        type: string
   schemas:
-    CollectionRequest:
-      properties:
-        name:
-          description: 'A brief identifier for the collection.
-
-            '
-          example: Apollo
-          maximum: 32
-          minimum: 1
-          type: string
-        description:
-          description: 'A sentence defining the document type within this collection, aiding the language model in grasping the content''s essence.
-
-
-            **Field Constraint:**
-
-            - Collection description: 1-4096 characters
-
-            '
-          example: Documents from the Apollo customer support tool including support responses.
-          maximum: 1024
-          minimum: 1
-          type: string
-        iconUrl:
-          description: 'A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.
-
-            '
-          example: https://my.company.com/apollo/logo.svg
-          type: string
-      type: object
     Collection:
       properties:
         id:
@@ -271,14 +249,36 @@ components:
       maxLength: 10000
       minLength: 1
       type: string
-  headers:
-    Link:
-      description: 'A link header providing navigation links related to the response.
+    CollectionRequest:
+      properties:
+        name:
+          description: 'A brief identifier for the collection.
 
-        '
-      example: <https://api.example.com/some/resource>; rel="next"
-      schema:
-        type: string
+            '
+          example: Apollo
+          maximum: 32
+          minimum: 1
+          type: string
+        description:
+          description: 'A sentence defining the document type within this collection, aiding the language model in grasping the content''s essence.
+
+
+            **Field Constraint:**
+
+            - Collection description: 1-4096 characters
+
+            '
+          example: Documents from the Apollo customer support tool including support responses.
+          maximum: 1024
+          minimum: 1
+          type: string
+        iconUrl:
+          description: 'A URL of a square image used to visually represent document references from the collection in the Unblocked UI. Preferred image formats are SVG, PNG, and JPG.
+
+            '
+          example: https://my.company.com/apollo/logo.svg
+          type: string
+      type: object
   securitySchemes:
     ApiKeyBearerAuth:
       bearerFormat: Unblocked API Key

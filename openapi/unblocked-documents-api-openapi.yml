@@ -132,22 +132,6 @@ paths:
       - Documents
 components:
   schemas:
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
-      type: string
-    PutDocumentResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/ApiResourceId'
-      type: object
-    Cursor:
-      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
-
-        '
-      maxLength: 10000
-      minLength: 1
-      type: string
     PutDocumentRequest:
       properties:
         collectionId:
@@ -178,6 +162,11 @@ components:
           description: A URL of the original source document that uniquely identifies the document. These will be used in answer references to link back to the original source.
           example: https://my.company.com/apollo/ticket/123456
           type: string
+      type: object
+    PutDocumentResponse:
+      properties:
+        id:
+          $ref: '#/components/schemas/ApiResourceId'
       type: object
     Document:
       properties:
@@ -213,6 +202,17 @@ components:
       - updatedAt
       - uri
       type: object
+    Cursor:
+      description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
+
+        '
+      maxLength: 10000
+      minLength: 1
+      type: string
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
   responses:
     ErrorResponse:
       content:
