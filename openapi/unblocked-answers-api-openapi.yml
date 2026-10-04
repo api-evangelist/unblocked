@@ -158,21 +158,6 @@ paths:
       - Answers
 components:
   schemas:
-    Question:
-      properties:
-        question:
-          description: The question to ask
-          type: string
-      required:
-      - question
-      type: object
-    Reference:
-      properties:
-        htmlUrl:
-          type: string
-      required:
-      - htmlUrl
-      type: object
     Answer:
       properties:
         state:
@@ -198,16 +183,31 @@ components:
       required:
       - state
       type: object
+    Reference:
+      properties:
+        htmlUrl:
+          type: string
+      required:
+      - htmlUrl
+      type: object
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
+    Question:
+      properties:
+        question:
+          description: The question to ask
+          type: string
+      required:
+      - question
+      type: object
     Cursor:
       description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
 
         '
       maxLength: 10000
       minLength: 1
-      type: string
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
       type: string
   headers:
     Link:

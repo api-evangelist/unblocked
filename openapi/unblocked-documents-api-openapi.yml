@@ -132,42 +132,6 @@ paths:
       - Documents
 components:
   schemas:
-    PutDocumentRequest:
-      properties:
-        collectionId:
-          description: The ID of the collection where the document will be added.
-          format: uuid
-          type: string
-        title:
-          description: A short title for the document in plain text.
-          example: Password Reset Guide
-          type: string
-        body:
-          description: 'The body of the document. Structured formats like Markdown or JSON are preferred for better AI-powered answers.
-
-
-            The body can be provided as:
-
-            - Plain text (recommended) - Will be automatically compressed for storage
-
-            - Pre-compressed gzip + base64 encoded text (optional) - For large documents or bandwidth optimization
-
-
-            Maximum request size including all fields: 10MB
-
-            '
-          example: To reset your password, visit ...
-          type: string
-        uri:
-          description: A URL of the original source document that uniquely identifies the document. These will be used in answer references to link back to the original source.
-          example: https://my.company.com/apollo/ticket/123456
-          type: string
-      type: object
-    PutDocumentResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/ApiResourceId'
-      type: object
     Document:
       properties:
         id:
@@ -202,6 +166,15 @@ components:
       - updatedAt
       - uri
       type: object
+    ApiResourceId:
+      description: The ID of a resource that can be retrieved from the service.
+      format: uuid
+      type: string
+    PutDocumentResponse:
+      properties:
+        id:
+          $ref: '#/components/schemas/ApiResourceId'
+      type: object
     Cursor:
       description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
 
@@ -209,10 +182,45 @@ components:
       maxLength: 10000
       minLength: 1
       type: string
-    ApiResourceId:
-      description: The ID of a resource that can be retrieved from the service.
-      format: uuid
-      type: string
+    PutDocumentRequest:
+      properties:
+        collectionId:
+          description: The ID of the collection where the document will be added.
+          format: uuid
+          type: string
+        title:
+          description: A short title for the document in plain text.
+          example: Password Reset Guide
+          type: string
+        body:
+          description: 'The body of the document. Structured formats like Markdown or JSON are preferred for better AI-powered answers.
+
+
+            The body can be provided as:
+
+            - Plain text (recommended) - Will be automatically compressed for storage
+
+            - Pre-compressed gzip + base64 encoded text (optional) - For large documents or bandwidth optimization
+
+
+            Maximum request size including all fields: 10MB
+
+            '
+          example: To reset your password, visit ...
+          type: string
+        uri:
+          description: A URL of the original source document that uniquely identifies the document. These will be used in answer references to link back to the original source.
+          example: https://my.company.com/apollo/ticket/123456
+          type: string
+      type: object
+  headers:
+    Link:
+      description: 'A link header providing navigation links related to the response.
+
+        '
+      example: <https://api.example.com/some/resource>; rel="next"
+      schema:
+        type: string
   responses:
     ErrorResponse:
       content:
@@ -227,14 +235,6 @@ components:
             - status
             type: object
       description: Error response
-  headers:
-    Link:
-      description: 'A link header providing navigation links related to the response.
-
-        '
-      example: <https://api.example.com/some/resource>; rel="next"
-      schema:
-        type: string
   securitySchemes:
     ApiKeyBearerAuth:
       bearerFormat: Unblocked API Key
