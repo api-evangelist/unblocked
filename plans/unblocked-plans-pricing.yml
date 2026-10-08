@@ -1,0 +1,39 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://getunblocked.com/pricing/
+sources:
+- https://getunblocked.com/pricing/
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-07'
+  evidence: On-premises deployment options
+  managed_tier: Platform
+published: true
+note: Annual/monthly toggle; only annual price shown. 21-day trial of Platform plan mentioned. Enterprise
+  offers on-premises deployment options (paid, custom).
+plan_count: 2
+currency: USD
+plans:
+- name: Platform
+  price_text: $ 29 USD per user/month billed annually
+  price: 29
+  currency: USD
+  period: month
+  unit: user
+  included_quota: Connect context to Claude, Cursor, Copilot, and more; Ask questions about your software
+    and its history; incognito mode; API access; Web-based support; Credits per license 300
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Everything in Platform, plus SSO & advanced security, Data Shield permission enforcement,
+    On-premises deployment options, Guided security review, Dedicated customer success, Priority support
+rate_limit_statements:
+- Credits per license 300
