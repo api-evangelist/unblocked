@@ -37,3 +37,26 @@ plans:
     On-premises deployment options, Guided security review, Dedicated customer success, Priority support
 rate_limit_statements:
 - Credits per license 300
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - seat
+  units:
+  - seat
+  plans:
+  - name: Platform
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
