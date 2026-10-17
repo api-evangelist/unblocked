@@ -183,6 +183,14 @@ components:
       required:
       - state
       type: object
+    Question:
+      properties:
+        question:
+          description: The question to ask
+          type: string
+      required:
+      - question
+      type: object
     Reference:
       properties:
         htmlUrl:
@@ -194,14 +202,6 @@ components:
       description: The ID of a resource that can be retrieved from the service.
       format: uuid
       type: string
-    Question:
-      properties:
-        question:
-          description: The question to ask
-          type: string
-      required:
-      - question
-      type: object
     Cursor:
       description: 'Opaque cursor to be used for paging in a forward or backward direction. Cursors are stateless and so they never expire.
 
