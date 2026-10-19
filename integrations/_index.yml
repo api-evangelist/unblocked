@@ -72,3 +72,34 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: unblocked-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@getunblocked/sdk
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@getunblocked/sdk'
+      version: 0.2.1
+      released: '2026-08-12'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@getunblocked/sdk
+      repo_leg: domain:getunblocked.com
+      publisher_leg: email:getunblocked.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
