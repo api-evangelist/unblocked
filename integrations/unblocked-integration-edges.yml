@@ -13,6 +13,8 @@ checked:
 - https://rubygems.org/api/v1
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
+- eclipse/integrations/eclipse-integration-edges.yml
+- vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (actions)
@@ -47,6 +49,36 @@ edges:
   publisher_name: Unblocked
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@getunblocked/sdk
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@getunblocked/sdk'
+      version: 0.2.1
+      released: '2026-08-12'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@getunblocked/sdk
+      repo_leg: domain:getunblocked.com
+      publisher_leg: email:getunblocked.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -62,7 +94,7 @@ edges:
     registered_name: com.getunblocked/unblocked-mcp
     register_id: com.getunblocked/unblocked-mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - com.getunblocked/unblocked-mcp
@@ -114,36 +146,45 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Slack app
-- partner_name: npm registry
-  partner: npm
-  partner_match: register
-  type: register
-  direction: provider-built
-  category: official SDK (JavaScript/TypeScript)
-  evidence: https://www.npmjs.com/package/@getunblocked/sdk
-  channel: package-registry
-  relationship: distribution-channel
-  contract_reference:
-    register: npm registry (public registry JSON)
-    spec_file: null
-    language: JavaScript/TypeScript
-    packages:
-    - name: '@getunblocked/sdk'
-      version: 0.2.1
-      released: '2026-08-12'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/@getunblocked/sdk
-      repo_leg: domain:getunblocked.com
-      publisher_leg: email:getunblocked.com
-      matched_by: domain
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  detected_by: sweep-official-sdks.py
-  first_seen: '2026-10-18'
+- partner_name: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: open-vsx
+  evidence: https://open-vsx.org/namespace/nextchaptersoftware
+  mirror_of: eclipse/integrations/eclipse-integration-edges.yml
+  apps:
+  - Unblocked
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified namespace
+- partner_name: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: vs-code-marketplace
+  evidence: https://marketplace.visualstudio.com/publishers/nextchaptersoftware
+  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+  apps:
+  - Unblocked
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified publisher
+  - Verified domain
 source:
 - https://github.com/marketplace?type=actions
 - https://plugins.jetbrains.com/
