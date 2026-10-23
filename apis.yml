@@ -131,6 +131,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/unblocked/overview
 - type: Plans
   url: plans/unblocked-plans-pricing.yml
 - url: https://getunblocked.com/blog/rss.xml
