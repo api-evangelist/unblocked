@@ -1,258 +1,436 @@
 {
+  "info": {
+    "_postman_id": "cc5a0e8a-cce8-40bf-8f19-b3b322a27095",
+    "name": "Unblocked Public API Reference Documents API",
+    "description": "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\n\nContact Support:\n Name: Unblocked\n Email: help@getunblocked.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:05:13.000Z",
+    "updatedAt": "2026-10-22T01:05:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cc5a0e8a-cce8-40bf-8f19-b3b322a27095"
+  },
   "item": [
     {
-      "id": "6fe8c913-e590-4317-8f14-ef9b2952b0e3",
-      "name": "Documents",
-      "description": {
-        "content": "A document contains content that Unblocked uses to answer questions. Each document is associated with a collection, so you must create a collection before adding documents. Documents used to provide answers will appear as references in the Unblocked interface.\n\nYou can create and delete documents as needed.\n",
-        "type": "text/plain"
-      },
+      "name": "documents",
       "item": [
         {
-          "id": "a91d5f9d-9526-4e07-be4d-432913604c73",
-          "name": "List Documents",
-          "request": {
-            "name": "List Documents",
-            "description": {
-              "content": "List all documents.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "documents"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{documentId}",
+          "item": [
+            {
+              "name": "Delete Document",
+              "id": "be152844-9500-470b-b1f3-5f1eceb70f2f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents/:documentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    ":documentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7a038dd9-a0d1-4554-a1df-349cebe005c9",
+                      "key": "documentId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Remove a document from the collection.\n\nRemoved documents may take up to a minute to be removed from the system."
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n"
+                  "id": "5aed98d2-630f-4852-ae34-265fdcfb05e3",
+                  "name": "No Content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:documentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":documentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "documentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-5aed98d2-630f-4852-ae34-265fdcfb05e3"
                 },
                 {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>"
+                  "id": "b0dbc83a-618e-44d8-9cfb-d96f0d9cd5dc",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:documentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":documentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "documentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-b0dbc83a-618e-44d8-9cfb-d96f0d9cd5dc"
                 },
                 {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>"
+                  "id": "07d1b92b-61ca-4c10-a4f2-952b942e0088",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:documentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":documentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "documentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:05:14.000Z",
+                  "updatedAt": "2026-10-22T01:05:14.000Z",
+                  "uid": "35240-07d1b92b-61ca-4c10-a4f2-952b942e0088"
                 }
               ],
-              "variable": []
-            },
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-be152844-9500-470b-b1f3-5f1eceb70f2f"
+            }
+          ],
+          "id": "b180369e-7c77-4b5a-b3c2-422e23bc646c",
+          "createdAt": "2026-10-22T01:05:14.000Z",
+          "updatedAt": "2026-10-22T01:05:14.000Z",
+          "uid": "35240-b180369e-7c77-4b5a-b3c2-422e23bc646c"
+        },
+        {
+          "name": "List Documents",
+          "id": "86446ca1-2ccc-4f20-9eb0-344c8ea6a852",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "788763e0-665c-400a-8cbb-5e936d7d1641",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "disabled": false,
-                  "description": "A link header providing navigation links related to the response.\n",
-                  "key": "link",
-                  "value": "<https://api.example.com/some/resource>; rel=\"next\""
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"collectionId\": \"06eb9cc5-812d-7b63-6434-fe86c0f660be\",\n    \"createdAt\": \"2013-12-16T21:50:38.027Z\",\n    \"id\": \"16867b9b-27f9-0d9e-6dfd-ec7f87b17c8a\",\n    \"title\": \"Password Reset Guide\",\n    \"updatedAt\": \"1965-05-27T22:28:32.418Z\",\n    \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n  },\n  {\n    \"collectionId\": \"b77e3d35-a157-ac69-75f8-c16fbd957ca0\",\n    \"createdAt\": \"1999-11-19T06:14:44.656Z\",\n    \"id\": \"05e199fe-6010-0f6f-bf43-549e7cadd00f\",\n    \"title\": \"Password Reset Guide\",\n    \"updatedAt\": \"2000-06-19T00:52:28.590Z\",\n    \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "630f7f9b-948b-4ed7-abf4-32c9aaaa0a12",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "24ce6b5c-95ac-4a8d-a0af-196447d35186",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "55966016-3103-409a-9891-54469f7e81af",
-          "name": "Put Document",
-          "request": {
-            "name": "Put Document",
-            "description": {
-              "content": "Use this endpoint to create or update a document for a given collection.\n\nDocuments are unique by `uri` across your organization.\nIf the document for `uri` does not exist, it will be created.\nIf the document for `uri` exists, it will be updated.\nOn success, an ID for the created or updated document will be returned.\n\nDocuments created or updated may take up to a minute to be available for use.\n",
-              "type": "text/plain"
-            },
             "url": {
-              "path": [
-                "documents"
-              ],
+              "raw": "{{baseUrl}}/documents?limit=<integer>&after=<string>&before=<string>",
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [],
-              "variable": []
+              "path": [
+                "documents"
+              ],
+              "query": [
+                {
+                  "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "key": "before",
+                  "value": "<string>"
+                }
+              ]
             },
+            "description": "List all documents."
+          },
+          "response": [
+            {
+              "id": "92fde44a-1699-4b4a-bea9-2b0b95ed9d1c",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?limit=<integer>&after=<string>&before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "link",
+                  "value": ""
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"collectionId\": \"<uuid>\",\n    \"createdAt\": \"<dateTime>\",\n    \"id\": \"<uuid>\",\n    \"title\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"uri\": \"<string>\"\n  },\n  {\n    \"collectionId\": \"<uuid>\",\n    \"createdAt\": \"<dateTime>\",\n    \"id\": \"<uuid>\",\n    \"title\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"uri\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-92fde44a-1699-4b4a-bea9-2b0b95ed9d1c"
+            },
+            {
+              "id": "acab9fd5-ecc5-4287-8946-478040845acf",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?limit=<integer>&after=<string>&before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-acab9fd5-ecc5-4287-8946-478040845acf"
+            },
+            {
+              "id": "cde5cc24-c163-4a47-90e6-2413f2cef89b",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?limit=<integer>&after=<string>&before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-cde5cc24-c163-4a47-90e6-2413f2cef89b"
+            }
+          ],
+          "createdAt": "2026-10-22T01:05:14.000Z",
+          "updatedAt": "2026-10-22T01:05:14.000Z",
+          "uid": "35240-86446ca1-2ccc-4f20-9eb0-344c8ea6a852"
+        },
+        {
+          "name": "Put Document",
+          "id": "e2687ff9-9b38-4364-9d71-f2ae536f5f85",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
             "header": [
               {
                 "key": "Content-Type",
@@ -263,435 +441,262 @@
                 "value": "application/json"
               }
             ],
-            "method": "PUT",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\",\n  \"uri\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents"
+              ]
+            },
+            "description": "Use this endpoint to create or update a document for a given collection.\n\nDocuments are unique by `uri` across your organization.\nIf the document for `uri` does not exist, it will be created.\nIf the document for `uri` exists, it will be updated.\nOn success, an ID for the created or updated document will be returned.\n\nDocuments created or updated may take up to a minute to be available for use."
           },
           "response": [
             {
-              "id": "c1e1f30f-a87b-498b-b441-12fd67a4d625",
+              "id": "e48a97dc-afaa-43c4-ac95-a9474282b773",
               "name": "OK",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"Password Reset Guide\",\n  \"body\": \"To reset your password, visit ...\",\n  \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n}",
+                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\",\n  \"uri\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"75791c2e-dde9-94db-0e8f-52fe5819d020\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-e48a97dc-afaa-43c4-ac95-a9474282b773"
             },
             {
-              "id": "2be0755d-6d2d-4fce-a60b-d957a8ae946b",
+              "id": "c10857f1-2af5-4759-b1bb-3ff9897cc5ee",
               "name": "Error response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"Password Reset Guide\",\n  \"body\": \"To reset your password, visit ...\",\n  \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n}",
+                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\",\n  \"uri\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-c10857f1-2af5-4759-b1bb-3ff9897cc5ee"
             },
             {
-              "id": "5381f1a1-d309-4418-942b-b8092bbe628c",
+              "id": "c8763948-9487-4175-a627-84695456d750",
               "name": "Error response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"Password Reset Guide\",\n  \"body\": \"To reset your password, visit ...\",\n  \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n}",
+                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\",\n  \"uri\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-c8763948-9487-4175-a627-84695456d750"
             },
             {
-              "id": "dbb27d94-7ff4-4a96-b69a-3de6f5550377",
+              "id": "bac17cc9-e972-4a3f-9766-e020bc29a509",
               "name": "Error response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"Password Reset Guide\",\n  \"body\": \"To reset your password, visit ...\",\n  \"uri\": \"https://my.company.com/apollo/ticket/123456\"\n}",
+                  "raw": "{\n  \"collectionId\": \"<uuid>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\",\n  \"uri\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:05:14.000Z",
+              "updatedAt": "2026-10-22T01:05:14.000Z",
+              "uid": "35240-bac17cc9-e972-4a3f-9766-e020bc29a509"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eca048b2-1062-45f5-a8f6-971b6acb126e",
-          "name": "Delete Document",
-          "request": {
-            "name": "Delete Document",
-            "description": {
-              "content": "Remove a document from the collection.\n\nRemoved documents may take up to a minute to be removed from the system.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "documents",
-                ":documentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "documentId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "279778d7-a19b-4df2-b24c-0cc05627d7ab",
-              "name": "No Content",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents",
-                    ":documentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "documentId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f9c8254b-0f67-4460-9bc5-11f533e26242",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents",
-                    ":documentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "documentId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8697a37d-8ebf-4080-9bf7-7f1407d2a19d",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "documents",
-                    ":documentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "documentId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:05:14.000Z",
+          "updatedAt": "2026-10-22T01:05:14.000Z",
+          "uid": "35240-e2687ff9-9b38-4364-9d71-f2ae536f5f85"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://getunblocked.com/api/v1",
-      "key": "baseUrl"
+      "id": "be3a2f78-4198-4933-a9b4-e384a94333af",
+      "createdAt": "2026-10-22T01:05:14.000Z",
+      "updatedAt": "2026-10-22T01:05:14.000Z",
+      "uid": "35240-be3a2f78-4198-4933-a9b4-e384a94333af"
     }
   ],
   "auth": {
@@ -699,17 +704,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "23037ae1-eb4c-4f27-b3f0-dbdf72789176",
-    "name": "Unblocked Public API Reference Answers Documents API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n\n\nContact Support:\n Name: Unblocked\n Email: help@getunblocked.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://getunblocked.com/api/v1"
     }
-  }
+  ]
 }

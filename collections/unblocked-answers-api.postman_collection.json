@@ -1,72 +1,1063 @@
 {
+  "info": {
+    "_postman_id": "b9c36e46-fb84-4d87-95eb-ce55895ef461",
+    "name": "Unblocked Public API Reference Answers API",
+    "description": "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\n\nContact Support:\n Name: Unblocked\n Email: help@getunblocked.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:04:59.000Z",
+    "updatedAt": "2026-10-22T01:04:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b9c36e46-fb84-4d87-95eb-ce55895ef461"
+  },
   "item": [
     {
-      "id": "1c5f71ec-8651-4934-bcb1-d3029abb5de2",
-      "name": "Answers",
-      "description": {
-        "content": "Ask Unblocked questions and retrieve answers asynchronously. Submit a question using the PUT endpoint and poll for the response using the GET endpoint.\n",
-        "type": "text/plain"
-      },
+      "name": "answers",
       "item": [
         {
-          "id": "50489fc0-a2d1-4aca-9095-bf851be97efc",
-          "name": "List Answers",
-          "request": {
-            "name": "List Answers",
-            "description": {
-              "content": "\nList all questions and answers for your organization, ordered by creation time (newest first).\n\n**Authentication behavior:**\n- **Personal Access Token (PAT) keys**: Only questions asked by that specific user are returned (user-level isolation)\n- **Organization-wide API keys**: All questions in the organization are returned\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "answers"
+          "name": "{questionId}",
+          "item": [
+            {
+              "name": "Delete a Question",
+              "id": "58048c6d-29da-4e7f-954a-b748a7ce6805",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/answers/:questionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "answers",
+                    ":questionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "40f4e93c-6ec9-479d-8ded-0892b008e720",
+                      "key": "questionId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Permanently delete a question and its associated answer. This operation cannot be undone."
+              },
+              "response": [
+                {
+                  "id": "65e0e587-40d5-4fce-a2f1-a67046fb8962",
+                  "name": "No Content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-65e0e587-40d5-4fce-a2f1-a67046fb8962"
+                },
+                {
+                  "id": "b0049d49-efc7-43d2-857c-09d34dd5a5ce",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-b0049d49-efc7-43d2-857c-09d34dd5a5ce"
+                },
+                {
+                  "id": "07a93623-2d9f-4e3b-a933-38a41ebe0b89",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-07a93623-2d9f-4e3b-a933-38a41ebe0b89"
+                },
+                {
+                  "id": "f9a22da8-fb16-4ced-a980-467e9b6b9c47",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-f9a22da8-fb16-4ced-a980-467e9b6b9c47"
+                },
+                {
+                  "id": "616efcea-4137-49dc-9b96-68cb9326cb02",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-616efcea-4137-49dc-9b96-68cb9326cb02"
+                }
               ],
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-58048c6d-29da-4e7f-954a-b748a7ce6805"
+            },
+            {
+              "name": "Retrieve an Answer",
+              "id": "6a9d7f65-2c77-4d4f-b9b8-b1731a938273",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/answers/:questionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "answers",
+                    ":questionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f0c01448-38f6-48c1-a70a-b728c64493bc",
+                      "key": "questionId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer."
+              },
+              "response": [
+                {
+                  "id": "91e1e65b-3723-49eb-9401-6c8c49f3b30b",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"state\": \"complete\",\n  \"questionId\": \"<uuid>\",\n  \"question\": \"<string>\",\n  \"answer\": \"<string>\",\n  \"references\": [\n    {\n      \"htmlUrl\": \"<string>\"\n    },\n    {\n      \"htmlUrl\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-91e1e65b-3723-49eb-9401-6c8c49f3b30b"
+                },
+                {
+                  "id": "bf8e3a70-e0fc-4623-a6e7-0f14d04a0510",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-bf8e3a70-e0fc-4623-a6e7-0f14d04a0510"
+                },
+                {
+                  "id": "d40ef9f3-f4de-4f55-a3c9-c5885eb70b9a",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-d40ef9f3-f4de-4f55-a3c9-c5885eb70b9a"
+                },
+                {
+                  "id": "0842080c-1052-48b3-abdc-ce3e9d61136a",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-0842080c-1052-48b3-abdc-ce3e9d61136a"
+                },
+                {
+                  "id": "afd796fb-9d5b-4460-9eb4-fa8f7be6d9b5",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-afd796fb-9d5b-4460-9eb4-fa8f7be6d9b5"
+                }
+              ],
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-6a9d7f65-2c77-4d4f-b9b8-b1731a938273"
+            },
+            {
+              "name": "Ask a Question",
+              "id": "b8bdb311-1b41-47ba-a15b-e6418da524d9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"question\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/answers/:questionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "answers",
+                    ":questionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1ca8f14c-4f09-4eaa-97c6-540dd824f7ba",
+                      "key": "questionId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response."
+              },
+              "response": [
+                {
+                  "id": "5cf9bad3-7247-4a94-b5b3-08438a533e31",
+                  "name": "No Content",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-5cf9bad3-7247-4a94-b5b3-08438a533e31"
+                },
+                {
+                  "id": "ae5910ee-ffa2-4497-a00a-625a3621007c",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-ae5910ee-ffa2-4497-a00a-625a3621007c"
+                },
+                {
+                  "id": "a1077dae-0471-4e3b-b4fd-11c720083628",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-a1077dae-0471-4e3b-b4fd-11c720083628"
+                },
+                {
+                  "id": "361d4585-40f1-4358-8ad6-57d3d396f20d",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-361d4585-40f1-4358-8ad6-57d3d396f20d"
+                },
+                {
+                  "id": "dbfde3e9-b4bc-471a-8160-2a948e703aa6",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-dbfde3e9-b4bc-471a-8160-2a948e703aa6"
+                },
+                {
+                  "id": "3df3c49c-68d5-483e-bc37-01cda4960618",
+                  "name": "Error response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"question\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/answers/:questionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "answers",
+                        ":questionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "questionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:04:59.000Z",
+                  "updatedAt": "2026-10-22T01:04:59.000Z",
+                  "uid": "35240-3df3c49c-68d5-483e-bc37-01cda4960618"
+                }
+              ],
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-b8bdb311-1b41-47ba-a15b-e6418da524d9"
+            }
+          ],
+          "id": "8f084192-0f9e-44ef-8192-2a18a54af3c2",
+          "createdAt": "2026-10-22T01:04:59.000Z",
+          "updatedAt": "2026-10-22T01:04:59.000Z",
+          "uid": "35240-8f084192-0f9e-44ef-8192-2a18a54af3c2"
+        },
+        {
+          "name": "List Answers",
+          "id": "d1e9ff8e-9ea1-47e6-b393-e667151cb1d6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/answers?limit=<integer>&after=<string>&before=<string>",
               "host": [
                 "{{baseUrl}}"
               ],
+              "path": [
+                "answers"
+              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
                   "key": "limit",
-                  "value": "<integer>",
-                  "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n"
+                  "value": "<integer>"
                 },
                 {
-                  "disabled": false,
                   "key": "after",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "before",
                   "value": "<string>"
                 }
-              ],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "List all questions and answers for your organization, ordered by creation time (newest first).\n\n**Authentication behavior:**\n- **Personal Access Token (PAT) keys**: Only questions asked by that specific user are returned (user-level isolation)\n- **Organization-wide API keys**: All questions in the organization are returned"
           },
           "response": [
             {
-              "id": "22512ff5-7b94-44c3-9025-5def5c490a8a",
+              "id": "f4d8664e-830c-4e31-9dae-ce409b8bed1d",
               "name": "OK",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "answers"
-                  ],
+                  "raw": "{{baseUrl}}/answers?limit=<integer>&after=<string>&before=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "answers"
+                  ],
                   "query": [
                     {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
                       "key": "limit",
                       "value": "<integer>"
                     },
@@ -78,57 +1069,61 @@
                       "key": "before",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
                   "disabled": false,
-                  "description": "A link header providing navigation links related to the response.\n",
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
                   "key": "link",
-                  "value": "<https://api.example.com/some/resource>; rel=\"next\""
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "value": ""
                 }
               ],
-              "body": "[\n  {\n    \"state\": \"processing\",\n    \"questionId\": \"c4a2e415-2270-31db-c2df-fe7c514a4d09\",\n    \"question\": \"string\",\n    \"answer\": \"string\",\n    \"references\": [\n      {\n        \"htmlUrl\": \"string\"\n      },\n      {\n        \"htmlUrl\": \"string\"\n      }\n    ]\n  },\n  {\n    \"state\": \"complete\",\n    \"questionId\": \"7c21791f-a582-ed7b-06e2-cbee3a3bbb2e\",\n    \"question\": \"string\",\n    \"answer\": \"string\",\n    \"references\": [\n      {\n        \"htmlUrl\": \"string\"\n      },\n      {\n        \"htmlUrl\": \"string\"\n      }\n    ]\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"state\": \"complete\",\n    \"questionId\": \"<uuid>\",\n    \"question\": \"<string>\",\n    \"answer\": \"<string>\",\n    \"references\": [\n      {\n        \"htmlUrl\": \"<string>\"\n      },\n      {\n        \"htmlUrl\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"state\": \"complete\",\n    \"questionId\": \"<uuid>\",\n    \"question\": \"<string>\",\n    \"answer\": \"<string>\",\n    \"references\": [\n      {\n        \"htmlUrl\": \"<string>\"\n      },\n      {\n        \"htmlUrl\": \"<string>\"\n      }\n    ]\n  }\n]",
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-f4d8664e-830c-4e31-9dae-ce409b8bed1d"
             },
             {
-              "id": "801687c0-2530-4dc7-a1b4-1b6de38cf75e",
+              "id": "483d52a3-605b-41d4-81b0-d027ce145bb8",
               "name": "Error response",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "answers"
-                  ],
+                  "raw": "{{baseUrl}}/answers?limit=<integer>&after=<string>&before=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "answers"
+                  ],
                   "query": [
                     {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
                       "key": "limit",
                       "value": "<integer>"
                     },
@@ -140,51 +1135,52 @@
                       "key": "before",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-483d52a3-605b-41d4-81b0-d027ce145bb8"
             },
             {
-              "id": "44d321f5-ecd0-47bd-83f2-c2fa299619b8",
+              "id": "785da18c-34f7-4579-9d8f-a93d659d33fc",
               "name": "Error response",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "answers"
-                  ],
+                  "raw": "{{baseUrl}}/answers?limit=<integer>&after=<string>&before=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "answers"
+                  ],
                   "query": [
                     {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
                       "key": "limit",
                       "value": "<integer>"
                     },
@@ -196,51 +1192,52 @@
                       "key": "before",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-785da18c-34f7-4579-9d8f-a93d659d33fc"
             },
             {
-              "id": "6701e048-cf1a-4be5-b7ea-10d33d86b4d9",
+              "id": "2c9c2f3f-596e-4b74-9adc-ded908645152",
               "name": "Error response",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "answers"
-                  ],
+                  "raw": "{{baseUrl}}/answers?limit=<integer>&after=<string>&before=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "answers"
+                  ],
                   "query": [
                     {
+                      "description": "Limit used to constrain results of list operations. When not specified a default limit of 25 is used.\n\nA maximum limit is applied to the results, so the server may respond with fewer results than requested; clients must not use this as a signal that this is the final page of results.\n",
                       "key": "limit",
                       "value": "<integer>"
                     },
@@ -252,1071 +1249,35 @@
                       "key": "before",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b2130f02-2f15-44c2-9f28-3c6fb3676216",
-          "name": "Delete a Question",
-          "request": {
-            "name": "Delete a Question",
-            "description": {
-              "content": "Permanently delete a question and its associated answer. This operation cannot be undone.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "answers",
-                ":questionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "questionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "54a8d869-0ed4-42fe-8a95-7d66fa93cac4",
-              "name": "No Content",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "59e0b467-4141-46d5-84a8-94b51d3e1061",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "79ee462a-f01b-4768-872d-185a66ee8582",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "68a2839b-dc73-46eb-8560-3a02c1bbb5f5",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "394f7e0d-35eb-4759-bebf-4d5fef9adfd4",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8cb3bc38-4e2f-41e3-93ab-4149a65543dc",
-          "name": "Retrieve an Answer",
-          "request": {
-            "name": "Retrieve an Answer",
-            "description": {
-              "content": "Poll a pending question for a response. Use this endpoint to check if your question has been processed and retrieve the answer.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "answers",
-                ":questionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "questionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "86dfff4b-c1e8-42ff-bc57-eb530be22a5a",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"state\": \"complete\",\n  \"questionId\": \"5e6176a7-a8d2-e5eb-504b-4510e8896daf\",\n  \"question\": \"string\",\n  \"answer\": \"string\",\n  \"references\": [\n    {\n      \"htmlUrl\": \"string\"\n    },\n    {\n      \"htmlUrl\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b1a13d3e-fbe5-4ca2-a71e-262e91887a4b",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b0d21ea2-cf68-4e04-9ca0-13c94b25d226",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "98812031-5d10-45f9-8bbc-e43fb40ce96d",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3ad48510-543b-4baf-a883-2093643eece5",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1d53acda-ce45-4649-bbdd-20a5a82ce954",
-          "name": "Ask a Question",
-          "request": {
-            "name": "Ask a Question",
-            "description": {
-              "content": "Submit a question to Unblocked. This endpoint initiates an asynchronous question processing. Use the GET endpoint to poll for the response.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "answers",
-                ":questionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "questionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"question\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "48014829-d18a-4d89-b676-3f973130e27f",
-              "name": "No Content",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "cbcd9092-ca4d-442a-8f33-e132e3156450",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "84aaa4f6-e81e-42bc-90a6-e77708a799e0",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "20b278e9-5f8a-4a8a-8aa1-a54194f6f8fa",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "148dd3d4-502e-4777-ad13-f8df351f6d5c",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 400\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a4066f4f-86db-49e8-9e5a-f8c90fce1e8c",
-              "name": "Error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "answers",
-                    ":questionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "questionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"question\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": 400\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:04:59.000Z",
+              "updatedAt": "2026-10-22T01:04:59.000Z",
+              "uid": "35240-2c9c2f3f-596e-4b74-9adc-ded908645152"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:04:59.000Z",
+          "updatedAt": "2026-10-22T01:04:59.000Z",
+          "uid": "35240-d1e9ff8e-9ea1-47e6-b393-e667151cb1d6"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://getunblocked.com/api/v1",
-      "key": "baseUrl"
+      "id": "5d78d7aa-c455-4318-99db-c9a1f19dd40a",
+      "createdAt": "2026-10-22T01:04:59.000Z",
+      "updatedAt": "2026-10-22T01:04:59.000Z",
+      "uid": "35240-5d78d7aa-c455-4318-99db-c9a1f19dd40a"
     }
   ],
   "auth": {
@@ -1324,17 +1285,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e40e2a5a-98a3-4e74-8035-99a8e7f7abcb",
-    "name": "Unblocked Public API Reference Answers API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Unblocked Public API offers seamless collection for managing custom data sources through a structured set of endpoints.\nIt allows users to create collections and organize and upload documents.\n\n# Base URL\nThe base URL for all requests is:\n\n```jsx\nhttps://getunblocked.com/api/v1\n```\n\n# Authentication\nAuthentication requires an API key, obtainable from the web dashboard,\nwhich must be included in the `Authorization` request header for all endpoints.\n\n```bash\ncurl -X GET https://getunblocked.com/api/v1/collections \\\n     -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n# Rate Limits & Quotas\n\n**Resource Limits:**\n- Collections: Maximum 25 per team\n- Request Size: Maximum 10MB per request\n- Pagination: 1-200 items per page (default: 25)\n\n**Answers API:**\n- Daily Limit: 1000 questions per day per organization\n- Quota Reset: Midnight PST\n- Exceeding the limit returns a 429 Too Many Requests error\n\n**Field Constraints:**\n- Collection name: 1-32 characters\n- Collection description: 1-4096 characters\n\n\nContact Support:\n Name: Unblocked\n Email: help@getunblocked.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://getunblocked.com/api/v1"
     }
-  }
+  ]
 }
